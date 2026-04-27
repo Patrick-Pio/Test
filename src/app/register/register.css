@@ -1,0 +1,70 @@
+/* Full page center */
+.container {
+  width: 100vw;
+  height: 100vh;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+    url('/assets/11.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card box */
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 320px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+/* Inputs */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 10px;
+  background: #1e3c72;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2a5298;
+}
+
+/* Text */
+h2 {
+  margin-bottom: 20px;
+}
+
+p {
+  margin-top: 15px;
+}
+
+a {
+  color: #1e3c72;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

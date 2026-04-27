@@ -6,8 +6,9 @@ import { SupabaseService } from '../supabase.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink],
-  templateUrl: './login.html'
+  imports: [FormsModule, RouterLink], // 🔥 IMPORTANT
+  templateUrl: './login.html',
+  styleUrls: ['./login.css']
 })
 export class LoginComponent {
   email = '';
@@ -15,7 +16,7 @@ export class LoginComponent {
 
   constructor(
     private supabaseService: SupabaseService,
-    private router: Router   // ✅ ADD THIS
+    private router: Router
   ) {}
 
   async login() {
@@ -30,8 +31,6 @@ export class LoginComponent {
     }
 
     alert('Login successful!');
-
-    // ✅ ADD THIS LINE (IMPORTANT)
-    this.router.navigate(['/showroom']);
+    this.router.navigate(['/cars']); // or dashboard
   }
 }
