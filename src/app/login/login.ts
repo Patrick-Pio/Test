@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { SupabaseService } from '../supabase.service';
 
 @Component({
@@ -13,7 +13,10 @@ export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private supabaseService: SupabaseService) {}
+  constructor(
+    private supabaseService: SupabaseService,
+    private router: Router   // ✅ ADD THIS
+  ) {}
 
   async login() {
     const { error } = await this.supabaseService.supabase.auth.signInWithPassword({
@@ -27,5 +30,8 @@ export class LoginComponent {
     }
 
     alert('Login successful!');
+
+    // ✅ ADD THIS LINE (IMPORTANT)
+    this.router.navigate(['/showroom']);
   }
 }

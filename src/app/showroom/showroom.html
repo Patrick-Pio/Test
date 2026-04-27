@@ -1,0 +1,36 @@
+<div class="container">
+  <h1>🚗 Car Showroom</h1>
+
+  <div class="grid">
+    
+    <div class="card" *ngFor="let car of cars">
+
+      <!-- Car Image -->
+      <img [src]="car.image" alt="car">
+
+      <!-- Car Details -->
+      <h2>{{ car.name }}</h2>
+      <p>{{ car.price }}</p>
+
+      <!-- Button -->
+      <button (click)="viewDetails(car)">View Details</button>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Popup Modal -->
+<div class="modal" *ngIf="selectedCar">
+  <div class="modal-content">
+
+    <span class="close" (click)="closeDetails()">×</span>
+
+    <img [src]="selectedCar.image" alt="car">
+    <h2>{{ selectedCar.name }}</h2>
+    <p>{{ selectedCar.price }}</p>
+
+    <button class="book-btn">Book Test Drive</button>
+
+  </div>
+</div>
