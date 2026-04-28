@@ -15,9 +15,9 @@ export class ShowroomComponent {
 
   cars = [
     {
-      name: 'BMW M4',
+      name: 'Ferrari 288 GTO',
       price: '₹1,20,00,000',
-      image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70'
+      image: 'https://images.squarespace-cdn.com/content/v1/5caed8960cf57d49530e8c60/353917e2-f8e9-45e6-8f3f-11a0a0bd6a11/01.jpg?format=2500w'
     },
     {
       name: 'Audi R8',

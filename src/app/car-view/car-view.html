@@ -1,1 +1,32 @@
-<p>car-view works!</p>
+<model-viewer
+  id="carViewer"
+  src="assets/models/car1.glb"
+  camera-controls
+  environment-image="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr"
+  exposure="1.2"
+  tone-mapping="aces"
+  shadow-intensity="1"
+  shadow-softness="1"
+  camera-orbit="0deg 75deg 2.5m"
+  field-of-view="45deg"
+  style="width: 100vw; height: 100vh;"
+  (load)="fixMaterials()">
+</model-viewer>
+
+<!-- OPEN BUTTON -->
+<button class="arrow-btn" (click)="toggleSheet()">
+  ▲
+</button>
+
+<!-- SINGLE BOTTOM SHEET -->
+<div class="bottom-sheet" [class.open]="isOpen">
+
+  <div class="handle"></div>
+
+  <!-- CLOSE BUTTON -->
+  <button class="close-btn" (click)="toggleSheet()">X</button>
+
+  <h2>Car Details</h2>
+  <p>Engine, specs, features, etc...</p>
+
+</div>
