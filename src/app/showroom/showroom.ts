@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-showroom',
@@ -9,6 +10,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./showroom.css']
 })
 export class ShowroomComponent {
+
+  constructor(private router: Router) {}
 
   cars = [
     {
@@ -23,15 +26,17 @@ export class ShowroomComponent {
     }
   ];
 
-  // ✅ ADD THIS (for popup)
-  selectedCar: any = null;
-
-  viewDetails(car: any) {
-    this.selectedCar = car;
+  // ✅ Better: handle null safely
+  get isAdmin(): boolean {
+    return localStorage.getItem('role') === 'admin';
   }
 
-  closeDetails() {
-    this.selectedCar = null;
+  // ✅ Better: type safety (optional but good practice)
+  viewDetails(car: { name: string }) {
+    this.router.navigate(['/car', car.name]);
   }
-
+  // ✅ (Optional) Navigate to add car page
+  goToAddCar() {
+    this.router.navigate(['/add-car']);
+  }
 }
