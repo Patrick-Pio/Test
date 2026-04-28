@@ -1,3 +1,6 @@
+/* ===================== */
+/* BACKGROUND */
+/* ===================== */
 .container {
   width: 100vw;
   height: 100vh;
@@ -15,52 +18,75 @@
   align-items: center;
 }
 
-/* Card box */
+/* ===================== */
+/* CARD */
+/* ===================== */
 .card {
-  background: white;
+  background: #ffffff;
+  color: #222;  /* 🔥 ensures text is visible */
+
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 12px;
   width: 320px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
   text-align: center;
 }
 
-/* Inputs */
+/* ===================== */
+/* INPUTS */
+/* ===================== */
 input {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
-  border-radius: 5px;
+
+  border-radius: 6px;
   border: 1px solid #ccc;
+
   box-sizing: border-box;
 }
 
-/* Button */
+/* ===================== */
+/* BUTTON */
+/* ===================== */
 button {
   width: 100%;
   padding: 10px;
+
   background: #1e3c72;
   color: white;
+
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
+
   cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
   background: #2a5298;
 }
 
-/* Text */
+/* ===================== */
+/* TEXT */
+/* ===================== */
 h2 {
   margin-bottom: 20px;
+  color: #1e3c72; /* 🔥 visible heading */
 }
 
 p {
   margin-top: 15px;
+  color: #444; /* 🔥 readable */
 }
 
+/* ===================== */
+/* LINK */
+/* ===================== */
 a {
-  color: #1e3c72;
+  color: #1e3c72;  /* 🔥 visible */
+  font-weight: 500;
   text-decoration: none;
 }
 
