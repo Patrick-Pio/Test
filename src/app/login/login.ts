@@ -6,7 +6,7 @@ import { SupabaseService } from '../supabase.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink], // 🔥 IMPORTANT
+  imports: [FormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
@@ -31,6 +31,8 @@ export class LoginComponent {
     }
 
     alert('Login successful!');
-    this.router.navigate(['/cars']); // or dashboard
+
+    // ✅ FIXED ROUTE
+    this.router.navigate(['/showroom']);
   }
 }
