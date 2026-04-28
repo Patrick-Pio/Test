@@ -1,4 +1,49 @@
-/* Container */
+/* ================= BACKGROUND (ONLY SHOWROOM) ================= */
+:host {
+  display: block;
+  min-height: 100vh;
+  position: relative;
+
+  background: radial-gradient(circle at center, #3a3a3a, #1a1a1a 80%);
+}
+
+/* TOP LIGHT */
+:host::before {
+  content: "";
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 1200px;
+  height: 600px;
+
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
+  filter: blur(80px);
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* FLOOR DEPTH */
+:host::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 120%;
+  height: 300px;
+
+  background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
+  filter: blur(60px);
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ================= CONTENT ================= */
 .container {
   padding: 20px;
   text-align: center;
@@ -21,7 +66,7 @@ h1 {
   margin: auto;
 }
 
-/* Card */
+/* ================= CARD ================= */
 .card {
   position: relative;
   background: rgba(255, 255, 255, 0.08);
@@ -35,7 +80,7 @@ h1 {
   transition: 0.3s ease;
 }
 
-/* Bottom gradient for readability */
+/* Bottom gradient */
 .card::after {
   content: "";
   position: absolute;
@@ -91,20 +136,18 @@ button:hover {
   transform: scale(1.05);
 }
 
-/* Modal - FIXED */
+/* ================= MODAL ================= */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-
   background: rgba(0,0,0,0.7);
 
-  z-index: 9999; /* 🔥 ensures it's above everything */
+  z-index: 9999;
 }
 
-/* Modal content */
 .modal-content {
   background: #111;
   color: white;
@@ -115,7 +158,7 @@ button:hover {
   text-align: center;
   position: relative;
 
-  z-index: 10000; /* 🔥 above modal */
+  z-index: 10000;
 
   box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
@@ -137,20 +180,5 @@ button:hover {
 /* Book button */
 .book-btn {
   background: green;
-}
-.add-btn {
-  padding: 12px 22px;
-  font-size: 16px;
-  border: none;
-  border-radius: 10px;
-  background-color: black;
   color: white;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-/* Lift + shadow */
-.add-btn:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
