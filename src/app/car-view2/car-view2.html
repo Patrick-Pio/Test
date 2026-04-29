@@ -13,15 +13,17 @@
 >
 </model-viewer>
 
-<!-- OPEN BUTTON -->
-<button class="arrow-btn" (click)="toggleSheet()">
+<!-- OPEN BUTTON — hidden when sheet is open -->
+<button class="arrow-btn" *ngIf="!isOpen" (click)="toggleSheet()">
   ▲
 </button>
 
 <div class="bottom-sheet" [class.open]="isOpen">
 
-  <div class="handle"></div>
-  <button class="close-btn" (click)="toggleSheet()">X</button>
+  <div class="sheet-header">
+    <div class="handle"></div>
+    <button class="close-btn" (click)="toggleSheet()">✕</button>
+  </div>
 
   <h2>McLaren MCL39</h2>
 
@@ -56,10 +58,6 @@
       <div class="row">
         <span>Team</span>
         <b>McLaren F1 Team</b>
-      </div>
-      <div class="row">
-        <span>Drivers</span>
-        <b>Lando Norris / Oscar Piastri</b>
       </div>
     </div>
 
