@@ -1,0 +1,151 @@
+<div class="page-wrap">
+  <div class="bg-lines"></div>
+  <div class="speedline"></div>
+  <div class="speedline"></div>
+  <div class="speedline"></div>
+  <div class="speedline"></div>
+
+  <!-- SUCCESS STATE -->
+  <div class="card success-card" *ngIf="submitted">
+    <div class="success-icon">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(180,140,60,0.9)" stroke-width="1.5">
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+    </div>
+    <h2>Booking Confirmed</h2>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-diamond"></div>
+      <div class="divider-line"></div>
+    </div>
+    <div class="success-details">
+      <div class="success-row">
+        <span>Vehicle</span>
+        <b>{{ carModel }}</b>
+      </div>
+      <div class="success-row">
+        <span>Name</span>
+        <b>{{ name }}</b>
+      </div>
+      <div class="success-row">
+        <span>Date</span>
+        <b>{{ date }}</b>
+      </div>
+      <div class="success-row">
+        <span>Time</span>
+        <b>{{ timeSlot }}</b>
+      </div>
+    </div>
+    <p class="success-msg">Our team will contact you at <b>{{ phone }}</b> to confirm your appointment.</p>
+    <button class="btn-back" (click)="goBack()"><span class="btn-text">← Return to Showroom</span></button>
+  </div>
+
+  <!-- BOOKING FORM -->
+  <div class="card" *ngIf="!submitted">
+    <button class="back-link" (click)="goBack()">← Back</button>
+
+    <h2>Book Test Drive</h2>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-diamond"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- CAR MODEL BADGE -->
+    <div class="car-badge">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(180,140,60,0.8)" stroke-width="1.5">
+        <path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v9a2 2 0 01-2 2h-2"/>
+        <circle cx="7.5" cy="17.5" r="2.5"/>
+        <circle cx="17.5" cy="17.5" r="2.5"/>
+      </svg>
+      <span>{{ carModel }}</span>
+    </div>
+
+    <form (ngSubmit)="onSubmit()">
+
+      <!-- NAME -->
+      <div class="field-group">
+        <label class="field-label">Full Name <span class="req">*</span></label>
+        <div class="field-wrap">
+          <span class="field-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8e0cc" stroke-width="1.5">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </span>
+          <input type="text" [(ngModel)]="name" name="name" placeholder="Enter your full name" required />
+        </div>
+      </div>
+
+      <!-- PHONE -->
+      <div class="field-group">
+        <label class="field-label">Phone Number <span class="req">*</span></label>
+        <div class="field-wrap">
+          <span class="field-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8e0cc" stroke-width="1.5">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .99h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+          </span>
+          <input type="tel" [(ngModel)]="phone" name="phone" placeholder="Enter your phone number" required />
+        </div>
+      </div>
+
+      <!-- EMAIL -->
+      <div class="field-group">
+        <label class="field-label">Email Address <span class="req">*</span></label>
+        <div class="field-wrap">
+          <span class="field-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8e0cc" stroke-width="1.5">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="M2 7l10 7 10-7"/>
+            </svg>
+          </span>
+          <input type="email" [(ngModel)]="email" name="email" placeholder="Enter your email" required />
+        </div>
+      </div>
+
+      <!-- DATE & TIME ROW -->
+      <div class="two-col">
+        <div class="field-group">
+          <label class="field-label">Preferred Date <span class="req">*</span></label>
+          <div class="field-wrap">
+            <span class="field-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8e0cc" stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="18" rx="2"/>
+                <line x1="16" y1="2" x2="16" y2="6"/>
+                <line x1="8" y1="2" x2="8" y2="6"/>
+                <line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            </span>
+            <input type="date" [(ngModel)]="date" name="date" [min]="getMinDate()" required />
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Time Slot <span class="req">*</span></label>
+          <div class="field-wrap">
+            <span class="field-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#e8e0cc" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </span>
+            <select [(ngModel)]="timeSlot" name="timeSlot" required>
+              <option value="" disabled selected>Select time</option>
+              <option *ngFor="let slot of timeSlots" [value]="slot">{{ slot }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- NOTES -->
+      <div class="field-group">
+        <label class="field-label">Additional Notes</label>
+        <textarea [(ngModel)]="notes" name="notes" placeholder="Any special requests or questions..." rows="3"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit"><span class="btn-text">Confirm Booking</span></button>
+    </form>
+  </div>
+</div>
