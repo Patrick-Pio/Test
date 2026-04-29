@@ -14,5 +14,6 @@ export const routes: Routes = [
   { path: 'car/:name', component: CarViewComponent1 },
   { path: 'car-view1', component: CarViewComponent1 },
   { path: 'car-view2', component: CarViewComponent2 },
-  { path: 'book1', component: Book1}
+  { path: 'book1', component: Book1}, 
+  {path: 'my-bookings',loadComponent: () => import('./my-bookings/my-bookings').then(m => m.MyBookingsComponent)}
 ];

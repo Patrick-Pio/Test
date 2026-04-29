@@ -1,0 +1,24 @@
+<div class="container">
+  <h1>My Bookings</h1>
+
+  <div *ngIf="loading">Loading...</div>
+
+  <div *ngIf="!loading && bookings.length === 0">
+    <p>No upcoming bookings 🚗</p>
+  </div>
+
+  <div class="card" *ngFor="let b of bookings">
+
+    <h2>{{ b.car_name }}</h2>
+
+    <p><strong>Date:</strong> {{ b.date }}</p>
+    <p><strong>Time:</strong> {{ b.time_slot }}</p>
+
+    <p *ngIf="b.notes">
+      <strong>Notes:</strong> {{ b.notes }}
+    </p>
+
+    <button (click)="cancelBooking(b.id)">Cancel</button>
+
+  </div>
+</div>

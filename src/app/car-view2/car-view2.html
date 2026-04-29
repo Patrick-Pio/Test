@@ -1,16 +1,16 @@
 <model-viewer
-  id="carViewer"
-  src="assets/models/car10.glb"
+  src="assets/models/car12.glb"
   camera-controls
-  environment-image="https://modelviewer.dev/shared-assets/environments/neutral.hdr"
-  skybox-image="https://modelviewer.dev/shared-assets/environments/spruit_sunrise_1k_HDR.hdr"
+  auto-rotate
+  environment-image="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr"
   exposure="1.2"
   shadow-intensity="1"
   shadow-softness="1"
+  tone-mapping="aces"
   camera-orbit="0deg 75deg 2.5m"
   field-of-view="45deg"
   style="width: 100vw; height: 100vh;"
-  (load)="fixMaterials()">
+>
 </model-viewer>
 
 <!-- OPEN BUTTON -->

@@ -22,7 +22,6 @@ export class CarViewComponent2 implements OnInit {
     this.isOpen = !this.isOpen;
   }
 
-  // ✅ FIXED MATERIAL HANDLING (SAFE FOR ANY MODEL)
   fixMaterials() {
     const viewer: any = document.getElementById('carViewer');
 
@@ -31,7 +30,6 @@ export class CarViewComponent2 implements OnInit {
       if (!model) return;
 
       model.materials.forEach((mat: any) => {
-
         const name = mat.name?.toLowerCase() || '';
 
         // 🪟 Glass / transparent parts
@@ -41,19 +39,23 @@ export class CarViewComponent2 implements OnInit {
           mat.pbrMetallicRoughness.setBaseColorFactor([0.7, 0.8, 1, 0.1]);
           mat.pbrMetallicRoughness.setRoughnessFactor(0.05);
         }
+      }); // ✅ closed forEach
 
-        // 💡 Lights
-        if (name.includes('light') || name.includes('lamp')) {
-          mat.setEmissiveFactor([1, 1, 1]);
-        }
+    }, 0);
+  } // ✅ closed fixMaterials
 
-        // 🔴 Brake lights (if exist)
-        if (name.includes('brake')) {
-          mat.setEmissiveFactor([1, 0, 0]);
-        }
+  debugShine() { // ✅ moved inside class
+    const viewer = document.querySelector('model-viewer') as any;
 
-      });
-
-    }, 100);
+    console.log("Model:", viewer?.model);
+    console.log("Environment:", viewer?.getAttribute('environment-image'));
   }
-}
+
+  onLoad() { // ✅ moved inside class
+    const viewer = document.querySelector('model-viewer') as any;
+
+    console.log("Model loaded:", viewer?.model);
+    console.log("Environment:", viewer?.environmentImage);
+  }
+
+} // ✅ closed class
