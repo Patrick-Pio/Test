@@ -11,47 +11,49 @@ import { CommonModule } from '@angular/common';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CarViewComponent2 implements OnInit {
-   isOpen = false;
 
-  toggleSheet() {
-    this.isOpen = !this.isOpen;
-  }
+  isOpen = false;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {}
 
-  // ✅ THIS METHOD MUST BE INSIDE THE CLASS
- fixMaterials() {
-  const viewer = document.getElementById('carViewer') as any;
+  toggleSheet() {
+    this.isOpen = !this.isOpen;
+  }
 
-  setTimeout(() => {
-    const model = viewer.model;
-    if (!model) return;
+  // ✅ FIXED MATERIAL HANDLING (SAFE FOR ANY MODEL)
+  fixMaterials() {
+    const viewer: any = document.getElementById('carViewer');
 
-    // 🚘 WINDSHIELD (fake glass but best possible without transmission)
-    const windshield = model.materials[1];
-    windshield.alphaMode = 'BLEND';
-    windshield.setDoubleSided(true);
-    windshield.pbrMetallicRoughness.setBaseColorFactor([0.6, 0.8, 1, 0.05]); // slight tint + transparency
-    windshield.pbrMetallicRoughness.setRoughnessFactor(0.01);
-    windshield.pbrMetallicRoughness.setMetallicFactor(0.1);
+    setTimeout(() => {
+      const model = viewer?.model;
+      if (!model) return;
 
-    // 💡 HEADLIGHT GLASS
-    const headlightGlass = model.materials[9];
-    headlightGlass.alphaMode = 'BLEND';
-    headlightGlass.setDoubleSided(true);
-    headlightGlass.pbrMetallicRoughness.setBaseColorFactor([0.8, 0.9, 1, 0.1]);
-    headlightGlass.pbrMetallicRoughness.setRoughnessFactor(0.05);
+      model.materials.forEach((mat: any) => {
 
-    // 🔴 BRAKELIGHT
-    const brakeLight = model.materials[23];
-    brakeLight.setEmissiveFactor([1, 0, 0]);
+        const name = mat.name?.toLowerCase() || '';
 
-    // ⚪ REVERSE LIGHT
-    const reverseLight = model.materials[11];
-    reverseLight.setEmissiveFactor([1, 1, 1]);
+        // 🪟 Glass / transparent parts
+        if (name.includes('glass') || name.includes('window')) {
+          mat.alphaMode = 'BLEND';
+          mat.setDoubleSided(true);
+          mat.pbrMetallicRoughness.setBaseColorFactor([0.7, 0.8, 1, 0.1]);
+          mat.pbrMetallicRoughness.setRoughnessFactor(0.05);
+        }
 
-  }, 0);
-}
+        // 💡 Lights
+        if (name.includes('light') || name.includes('lamp')) {
+          mat.setEmissiveFactor([1, 1, 1]);
+        }
+
+        // 🔴 Brake lights (if exist)
+        if (name.includes('brake')) {
+          mat.setEmissiveFactor([1, 0, 0]);
+        }
+
+      });
+
+    }, 100);
+  }
 }
