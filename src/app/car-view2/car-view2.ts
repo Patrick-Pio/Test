@@ -54,4 +54,16 @@ export class CarViewComponent2 implements OnInit {
 
   }, 0);
 }
+debugShine() {
+  const viewer = document.querySelector('model-viewer') as any;
+
+  console.log("Model:", viewer?.model);
+  console.log("Environment:", viewer?.getAttribute('environment-image'));
+}
+onLoad() {
+  const viewer = document.querySelector('model-viewer') as any;
+
+  console.log("Model loaded:", viewer?.model);
+  console.log("Environment:", viewer?.environmentImage);
+}
 }

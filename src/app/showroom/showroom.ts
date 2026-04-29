@@ -41,5 +41,8 @@ export class ShowroomComponent {
   goToAddCar() {
     this.router.navigate(['/add-car']);
   }
+  goToBookings() {
+  this.router.navigate(['/my-bookings']);
+}
  
 } 
