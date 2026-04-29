@@ -21,9 +21,9 @@ export class ShowroomComponent {
       route: '/car-view1'
     },
     {
-      name: 'Audi R8',
-      price: '₹2,00,00,000',
-      image: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c',
+      name: 'MCL39 F1',
+      price: '₹30,00,00,000',
+      image: 'https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000001/fom-website/2023/McLaren/Formula%201%20header%20template%20(35).webp',
       route: '/car-view2'
     }
   ];
