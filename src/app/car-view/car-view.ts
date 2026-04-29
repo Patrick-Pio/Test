@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./car-view.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CarViewComponent implements OnInit {
+export class CarViewComponent1 implements OnInit {
    isOpen = false;
 
   toggleSheet() {

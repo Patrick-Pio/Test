@@ -1,5 +1,5 @@
 <div class="container">
-  <h1> Car Showroom</h1>
+  <h1>Car Showroom</h1>
 
   <!-- ✅ Admin-only button -->
   <button *ngIf="isAdmin" class="add-btn" (click)="goToAddCar()">
@@ -18,10 +18,7 @@
       <p>{{ car.price }}</p>
 
       <!-- View Details -->
-      <button (click)="viewDetails(car)">
-        View Details
-      </button>
-
+    <button (click)="viewDetails(car.route)">View Details</button>
     </div>
 
   </div>

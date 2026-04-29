@@ -1,0 +1,80 @@
+<model-viewer
+  id="carViewer"
+  src="assets/models/car3.glb"
+  camera-controls
+  environment-image="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr"
+  exposure="1.2"
+  tone-mapping="aces"
+  shadow-intensity="1"
+  shadow-softness="1"
+  camera-orbit="0deg 75deg 2.5m"
+  field-of-view="45deg"
+  style="width: 100vw; height: 100vh;"
+  (load)="fixMaterials()">
+</model-viewer>
+
+<!-- OPEN BUTTON -->
+<button class="arrow-btn" (click)="toggleSheet()">
+  ▲
+</button>
+
+<div class="bottom-sheet" [class.open]="isOpen">
+
+  <div class="handle"></div>
+  <button class="close-btn" (click)="toggleSheet()">X</button>
+
+  <h2>Car Details</h2>
+
+  <div class="details-container">
+
+    <!-- LEFT SIDE (SPECIFICATIONS) -->
+    <div class="specs">
+      <div class="row">
+        <span>Engine</span>
+        <b>3.0L Twin Turbo</b>
+      </div>
+      <div class="row">
+        <span>Power</span>
+        <b>473 HP</b>
+      </div>
+      <div class="row">
+        <span>Top Speed</span>
+        <b>250 km/h</b>
+      </div>
+      <div class="row">
+        <span>0-100 km/h</span>
+        <b>4.1 sec</b>
+      </div>
+      <div class="row">
+        <span>Fuel Type</span>
+        <b>Petrol</b>
+      </div>
+      <div class="row">
+        <span>Transmission</span>
+        <b>Automatic</b>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE (DESCRIPTION) -->
+    <div class="description">
+      <p>
+  The Ferrari 288 GTO is a legendary supercar known for its aggressive design 
+  and race-inspired performance. Built as Ferrari’s first true supercar of the 
+  modern era, it features a twin-turbocharged V8 engine that delivers exceptional 
+  speed, power, and precision.
+
+  Originally developed for Group B racing, the 288 GTO combines lightweight 
+  construction with advanced aerodynamics, making it both rare and highly 
+  desirable. Its iconic styling, raw driving experience, and limited production 
+  make it one of the most celebrated and collectible Ferraris ever created.
+</p>
+    </div>
+
+  </div>
+
+  <!-- BUTTON (BOTTOM RIGHT) -->
+  <button class="test-drive-btn">
+    Book Test Drive
+  </button>
+
+</div>
