@@ -1,17 +1,63 @@
-body {
-  background: #f5f5f5;
+/* ================= BACKGROUND (ONLY SHOWROOM) ================= */
+:host {
+  display: block;
+  min-height: 100vh;
+  position: relative;
+
+  background: radial-gradient(circle at center, #3a3a3a, #1a1a1a 80%);
 }
 
+/* TOP LIGHT */
+:host::before {
+  content: "";
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 1200px;
+  height: 600px;
+
+  background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 70%);
+  filter: blur(80px);
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* FLOOR DEPTH */
+:host::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 120%;
+  height: 300px;
+
+  background: radial-gradient(circle, rgba(255,255,255,0.05), transparent 70%);
+  filter: blur(60px);
+
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ================= CONTENT ================= */
 .container {
   padding: 20px;
   text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
+/* Title */
 h1 {
   margin-bottom: 30px;
+  color: #ffffff;
 }
 
-/* FIXED 2 COLUMN LAYOUT */
+/* Grid */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -20,62 +66,101 @@ h1 {
   margin: auto;
 }
 
-/* CARD */
+/* ================= CARD ================= */
 .card {
-  background: white;
+  position: relative;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  transition: 0.3s;
+
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+
+  transition: 0.3s ease;
 }
 
+/* Bottom gradient */
+.card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+}
+
+/* Hover */
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.8);
 }
 
+/* Image */
 .card img {
   width: 100%;
   height: 250px;
   object-fit: cover;
 }
 
+/* Text */
 h2 {
   margin-top: 15px;
+  color: #ffffff;
+  position: relative;
+  z-index: 1;
 }
 
-/* BUTTON */
+.card p {
+  color: #dddddd;
+  position: relative;
+  z-index: 1;
+}
+
+/* Button */
 button {
   margin: 15px;
   padding: 10px 18px;
   border: none;
-  background: black;
+  background: linear-gradient(45deg, #000, #444);
   color: white;
   border-radius: 8px;
   cursor: pointer;
+  transition: 0.3s;
+  position: relative;
+  z-index: 1;
 }
 
 button:hover {
-  background: #333;
+  transform: scale(1.05);
 }
 
-/* MODAL */
+/* ================= MODAL ================= */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.7);
+
+  z-index: 9999;
 }
 
 .modal-content {
-  background: white;
+  background: #111;
+  color: white;
   width: 320px;
   margin: 10% auto;
   padding: 20px;
   border-radius: 12px;
   text-align: center;
   position: relative;
+
+  z-index: 10000;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 
 .modal-content img {
@@ -83,6 +168,7 @@ button:hover {
   border-radius: 10px;
 }
 
+/* Close */
 .close {
   position: absolute;
   right: 12px;
@@ -91,6 +177,8 @@ button:hover {
   cursor: pointer;
 }
 
+/* Book button */
 .book-btn {
   background: green;
+  color: white;
 }

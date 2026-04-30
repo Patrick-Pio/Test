@@ -2,25 +2,31 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { SupabaseService } from '../supabase.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, CommonModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
 })
 export class LoginComponent {
   email = '';
   password = '';
+  showPassword = false;
 
   constructor(
     private supabaseService: SupabaseService,
     private router: Router
   ) {}
 
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
+
   async login() {
-    const { error } = await this.supabaseService.supabase.auth.signInWithPassword({
+    const { data, error } = await this.supabaseService.supabase.auth.signInWithPassword({
       email: this.email,
       password: this.password
     });
@@ -30,9 +36,29 @@ export class LoginComponent {
       return;
     }
 
+    const user = data.user;
+
+    // Fetch role from profiles table
+    const { data: profile, error: profileError } = await this.supabaseService.supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single();
+
+    if (profileError) {
+      console.error(profileError);
+      alert('Error fetching user role');
+      return;
+    }
+
+    const role = profile?.role || 'user';
+
+    // Store role locally
+    localStorage.setItem('role', role);
+    console.log('User role:', role);
     alert('Login successful!');
 
-    // ✅ FIXED ROUTE
+    // Navigate
     this.router.navigate(['/showroom']);
   }
 }
