@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
+import { SupabaseService } from '../supabase.service'; // adjust path
 
 @Component({
   selector: 'app-book1',
@@ -21,12 +22,16 @@ export class Book1 implements OnInit {
   submitted: boolean = false;
 
   timeSlots: string[] = [
-    '09:00 AM', '10:00 AM', '11:00 AM',
-    '12:00 PM', '01:00 PM', '02:00 PM',
-    '03:00 PM', '04:00 PM', '05:00 PM'
-  ];
+  '09:00', '10:00', '11:00',
+  '12:00', '13:00', '14:00',
+  '15:00', '16:00', '17:00'
+];
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+ constructor(
+  private router: Router,
+  private route: ActivatedRoute,
+  private supabaseService: SupabaseService
+) {}
 
   ngOnInit() {
     // Auto-fill car from route param if available
@@ -41,15 +46,44 @@ export class Book1 implements OnInit {
     return today.toISOString().split('T')[0];
   }
 
-  onSubmit() {
-    if (!this.name || !this.phone || !this.email || !this.date || !this.timeSlot) {
-      alert('Please fill in all required fields.');
-      return;
-    }
-    this.submitted = true;
+  async onSubmit() {
+  if (!this.name || !this.phone || !this.email || !this.date || !this.timeSlot) {
+    alert('Please fill in all required fields.');
+    return;
   }
 
+  const user = await this.supabaseService.supabase.auth.getUser();
+  console.log("USER:", user);
+
+  const bookingData = {
+    user_id: user.data.user?.id,
+    car_name: this.carModel,
+    full_name: this.name,
+    phone: this.phone,
+    email: this.email,
+    date: this.date,
+    time_slot: this.timeSlot,
+    notes: this.notes
+  };
+
+  console.log("SENDING:", bookingData);
+
+  const { data, error } = await this.supabaseService.supabase
+    .from('bookings')
+    .insert([bookingData]);
+
+  console.log("RESPONSE:", data);
+  console.log("ERROR:", error);
+
+  if (error) {
+    alert("Error: " + error.message);
+    return;
+  }
+
+  this.submitted = true;
+}
+
   goBack() {
-    this.router.navigate(['/car-view1']);
+    this.router.navigate(['/showroom']);
   }
 }

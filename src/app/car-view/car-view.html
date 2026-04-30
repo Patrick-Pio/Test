@@ -19,14 +19,10 @@
 </button>
 
 <div class="bottom-sheet" [class.open]="isOpen">
-
   <div class="handle"></div>
   <button class="close-btn" (click)="toggleSheet()">X</button>
-
-  <h2>Car Details</h2>
-
+  <h2>Ferrari 288 GTO</h2>
   <div class="details-container">
-
     <!-- LEFT SIDE (SPECIFICATIONS) -->
     <div class="specs">
       <div class="row">
@@ -54,27 +50,23 @@
         <b>Automatic</b>
       </div>
     </div>
-
     <!-- RIGHT SIDE (DESCRIPTION) -->
     <div class="description">
       <p>
-  The Ferrari 288 GTO is a legendary supercar known for its aggressive design 
-  and race-inspired performance. Built as Ferrari’s first true supercar of the 
-  modern era, it features a twin-turbocharged V8 engine that delivers exceptional 
-  speed, power, and precision.
-
-  Originally developed for Group B racing, the 288 GTO combines lightweight 
-  construction with advanced aerodynamics, making it both rare and highly 
-  desirable. Its iconic styling, raw driving experience, and limited production 
-  make it one of the most celebrated and collectible Ferraris ever created.
-</p>
+        The Ferrari 288 GTO is a legendary supercar known for its aggressive design
+        and race-inspired performance. Built as Ferrari's first true supercar of the
+        modern era, it features a twin-turbocharged V8 engine that delivers exceptional
+        speed, power, and precision.
+        Originally developed for Group B racing, the 288 GTO combines lightweight
+        construction with advanced aerodynamics, making it both rare and highly
+        desirable. Its iconic styling, raw driving experience, and limited production
+        make it one of the most celebrated and collectible Ferraris ever created.
+      </p>
     </div>
-
   </div>
 
   <!-- BUTTON (BOTTOM RIGHT) -->
-  <button class="test-drive-btn">
+  <button class="test-drive-btn" (click)="bookTestDrive()">
     Book Test Drive
   </button>
-
 </div>
