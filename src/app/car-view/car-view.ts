@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -13,25 +13,34 @@ import { CommonModule } from '@angular/common';
 export class CarViewComponent1 implements OnInit {
   isOpen = false;
 
-  toggleSheet() {
-    this.isOpen = !this.isOpen;
-  }
-
   constructor(
     private route: ActivatedRoute,
     private router: Router
   ) {}
-  goToBooking() {
-  console.log("BUTTON CLICKED");
-  this.router.navigate(['/book1'], {
-    queryParams: {
-      car: 'Ferrari 288 GTO'
-    }
-  });
-}
 
   ngOnInit() {}
 
+  toggleSheet() {
+    this.isOpen = !this.isOpen;
+  }
+
+  goToBooking() {
+    console.log('BUTTON CLICKED');
+    this.router.navigate(['/book1'], {
+      queryParams: {
+        car: 'Ferrari 288 GTO'
+      }
+    });
+  }
+
+  bookTestDrive() {
+    this.router.navigate(['/book1'], {
+      queryParams: {
+        car: 'Ferrari 288 GTO',
+        type: 'test-drive'
+      }
+    });
+  }
 
   fixMaterials() {
     const viewer = document.querySelector('#carViewer') as any;
