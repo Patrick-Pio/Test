@@ -4,18 +4,14 @@
   <div class="speedline"></div>
   <div class="speedline"></div>
   <div class="speedline"></div>
-
   <div class="card">
     <h2>Login</h2>
-
     <div class="divider">
       <div class="divider-line"></div>
       <div class="divider-diamond"></div>
       <div class="divider-line"></div>
     </div>
-
     <form (ngSubmit)="login()">
-
       <div class="field-group">
         <label class="field-label">Email Address</label>
         <div class="field-wrap">
@@ -34,7 +30,6 @@
           />
         </div>
       </div>
-
       <div class="field-group">
         <label class="field-label">Password</label>
         <div class="field-wrap">
@@ -52,22 +47,35 @@
             required
           />
           <button class="eye-toggle" type="button" (click)="togglePassword()">
-            <svg *ngIf="!showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg *ngIf="!showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.5">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
               <circle cx="12" cy="12" r="3"/>
             </svg>
-            <svg *ngIf="showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <svg *ngIf="showPassword" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.5">
               <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
               <line x1="1" y1="1" x2="23" y2="23"/>
             </svg>
           </button>
         </div>
       </div>
-
       <button type="submit"><span class="btn-text">Login</span></button>
 
+      <!-- Inline messages replacing alert() -->
+      <div *ngIf="successMessage" class="message success-message">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="message error-message">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        {{ errorMessage }}
+      </div>
     </form>
-
     <p>
       Don't have an account?
       <a routerLink="/register">Register</a>

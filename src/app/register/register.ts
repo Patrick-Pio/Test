@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SupabaseService } from '../supabase.service';
@@ -15,10 +15,13 @@ export class RegisterComponent {
   email = '';
   password = '';
   showPassword = false;
+  successMessage = '';
+  errorMessage = '';
 
   constructor(
     private router: Router,
-    private supabaseService: SupabaseService
+    private supabaseService: SupabaseService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   togglePassword(): void {
@@ -26,17 +29,25 @@ export class RegisterComponent {
   }
 
   async register() {
+    this.successMessage = '';
+    this.errorMessage = '';
+
     const { error } = await this.supabaseService.supabase.auth.signUp({
       email: this.email,
       password: this.password
     });
 
     if (error) {
-      alert(error.message);
+      this.errorMessage = error.message;
+      this.cdr.detectChanges();
       return;
     }
 
-    alert('Registered successfully!');
-    this.router.navigate(['/login']);
+    this.successMessage = 'Registered successfully! Redirecting to login...';
+    this.cdr.detectChanges();
+
+    setTimeout(() => {
+      this.router.navigate(['/login']);
+    }, 2500);
   }
 }
