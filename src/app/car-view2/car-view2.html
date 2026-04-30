@@ -13,17 +13,19 @@
 >
 </model-viewer>
 
-<!-- OPEN BUTTON -->
-<button class="arrow-btn" (click)="toggleSheet()">
+<!-- OPEN BUTTON — hidden when sheet is open -->
+<button class="arrow-btn" *ngIf="!isOpen" (click)="toggleSheet()">
   ▲
 </button>
 
 <div class="bottom-sheet" [class.open]="isOpen">
 
-  <div class="handle"></div>
-  <button class="close-btn" (click)="toggleSheet()">X</button>
+  <div class="sheet-header">
+    <div class="handle"></div>
+    <button class="close-btn" (click)="toggleSheet()">✕</button>
+  </div>
 
-  <h2>Car Details</h2>
+  <h2>McLaren MCL39</h2>
 
   <div class="details-container">
 
@@ -31,43 +33,49 @@
     <div class="specs">
       <div class="row">
         <span>Engine</span>
-        <b>3.0L Twin Turbo</b>
+        <b>1.6L V6 Turbo Hybrid</b>
       </div>
       <div class="row">
         <span>Power</span>
-        <b>473 HP</b>
+        <b>1000+ HP</b>
       </div>
       <div class="row">
         <span>Top Speed</span>
-        <b>250 km/h</b>
+        <b>350+ km/h</b>
       </div>
       <div class="row">
         <span>0-100 km/h</span>
-        <b>4.1 sec</b>
+        <b>~2.5 sec</b>
       </div>
       <div class="row">
         <span>Fuel Type</span>
-        <b>Petrol</b>
+        <b>Hybrid (Petrol + ERS)</b>
       </div>
       <div class="row">
         <span>Transmission</span>
-        <b>Automatic</b>
+        <b>8-Speed Semi-Automatic</b>
+      </div>
+      <div class="row">
+        <span>Team</span>
+        <b>McLaren F1 Team</b>
       </div>
     </div>
 
     <!-- RIGHT SIDE (DESCRIPTION) -->
     <div class="description">
       <p>
-  The Ferrari 288 GTO is a legendary supercar known for its aggressive design 
-  and race-inspired performance. Built as Ferrari’s first true supercar of the 
-  modern era, it features a twin-turbocharged V8 engine that delivers exceptional 
-  speed, power, and precision.
+        The McLaren MCL39 is a state-of-the-art Formula 1 car built for
+        the 2025 season, engineered to deliver extreme performance
+        and precision on the track. Powered by a 1.6L V6 turbo-hybrid
+        power unit, it combines internal combustion with advanced
+        energy recovery systems (ERS) to produce over 1000 horsepower.
 
-  Originally developed for Group B racing, the 288 GTO combines lightweight 
-  construction with advanced aerodynamics, making it both rare and highly 
-  desirable. Its iconic styling, raw driving experience, and limited production 
-  make it one of the most celebrated and collectible Ferraris ever created.
-</p>
+        Designed with cutting-edge aerodynamics and lightweight materials,
+        the MCL39 maximizes speed, efficiency, and cornering stability.
+        Representing the pinnacle of modern motorsport technology, it
+        showcases McLaren's commitment to innovation, performance, and
+        sustainability in Formula 1 racing.
+      </p>
     </div>
 
   </div>

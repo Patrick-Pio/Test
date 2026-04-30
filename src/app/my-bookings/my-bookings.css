@@ -1,0 +1,144 @@
+/* ===================== */
+/* BASE */
+/* ===================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #0a0a0a;
+  color: #fff;
+  font-family: 'Georgia', serif;
+  min-height: 100vh;
+}
+
+/* ===================== */
+/* CONTAINER */
+/* ===================== */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+/* ===================== */
+/* TITLE */
+/* ===================== */
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+/* Gold divider under title */
+h1::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, #c9a84c, #f0d080);
+  margin-top: 12px;
+  margin-bottom: 36px;
+}
+
+/* ===================== */
+/* EMPTY STATE */
+/* ===================== */
+.container > div > p {
+  color: #888;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  margin-top: 20px;
+}
+
+/* ===================== */
+/* BOOKING CARD */
+/* ===================== */
+.card {
+  background: #1a1612;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-top: 2px solid #c9a84c;
+  border-radius: 6px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(201, 168, 76, 0.6);
+  box-shadow: 0 4px 24px rgba(201, 168, 76, 0.1);
+}
+
+/* ===================== */
+/* CAR NAME */
+/* ===================== */
+.card h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+}
+
+/* ===================== */
+/* CARD INFO ROWS */
+/* ===================== */
+.card p {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: #bbb;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.card p strong {
+  color: #c9a84c;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+/* ===================== */
+/* CANCEL BUTTON */
+/* ===================== */
+button {
+  margin-top: 20px;
+  padding: 10px 24px;
+
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.5);
+  border-radius: 4px;
+
+  color: #c9a84c;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: #c9a84c;
+  box-shadow: 0 0 12px rgba(201, 168, 76, 0.2);
+}
+
+/* ===================== */
+/* LOADING */
+/* ===================== */
+.container > div:first-of-type {
+  color: #888;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  margin-top: 20px;
+}
