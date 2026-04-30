@@ -1,4 +1,4 @@
-import { Component, Input, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 
 @Component({
   selector: 'app-car-3d-viewer',
@@ -11,49 +11,48 @@ export class Car3dViewerComponent {
   @Input() model: string = 'assets/models/car1.glb';
   @Input() useAltFix: boolean = false;
 
-  private viewer: any;
-onLoad(event: any) {
-  this.viewer = event.target;
+  onLoad(event: any) {
+    const viewer = event.target;
+    const model = viewer?.model;
 
-  if (this.useAltFix) {
-    this.fixMaterials2();
-  } else {
-    this.fixMaterials();
-  }
-}
+    if (!model) {
+      console.log('Model not loaded yet');
+      return;
+    }
 
-  fixMaterials() {
-    const model = this.viewer?.model;
-    if (!model) return;
+    console.log('Materials:', model.materials);
 
     model.materials.forEach((mat: any) => {
-      const name = mat.name.toLowerCase();
+      const name = (mat.name || '').toLowerCase();
+      const pbr = mat?.pbrMetallicRoughness;
 
+      if (!pbr) return;
+
+      // =========================
+      // 🪟 GLASS FIX
+      // =========================
       if (name.includes('glass') || name.includes('window')) {
-        mat.pbrMetallicRoughness.setBaseColorFactor([0, 0, 0, 0.3]);
-        mat.setAlphaMode('BLEND');
-        mat.pbrMetallicRoughness.setRoughnessFactor(0.1);
+        mat.setAlphaMode?.('BLEND');
+
+        pbr.setMetallicFactor?.(0);
+        pbr.setRoughnessFactor?.(0.05);
+        pbr.setBaseColorFactor?.([0.7, 0.8, 1, 0.15]);
       }
 
-      if (name.includes('light') || name.includes('tail')) {
-        mat.pbrMetallicRoughness.setBaseColorFactor([1, 0, 0, 1]);
-        mat.emissiveFactor = [1, 0, 0];
-      }
-    });
-  }
+      // =========================
+      // 💥 UNIVERSAL FALLBACK FIX (OPTION 2)
+      // fixes white / broken materials
+      // =========================
+      try {
+        pbr.setMetallicFactor?.(0.2);
+        pbr.setRoughnessFactor?.(0.6);
 
-  fixMaterials2() {
-    const model = this.viewer?.model;
-    if (!model) return;
-
-    model.materials.forEach((mat: any) => {
-      const name = mat.name?.toLowerCase() || '';
-
-      if (name.includes('glass') || name.includes('window')) {
-        mat.alphaMode = 'BLEND';
-        mat.setDoubleSided(true);
-        mat.pbrMetallicRoughness.setBaseColorFactor([0.7, 0.8, 1, 0.1]);
-        mat.pbrMetallicRoughness.setRoughnessFactor(0.05);
+        // Only apply if model looks untextured/white
+        if (!pbr.baseColorTexture) {
+          pbr.setBaseColorFactor?.([0.8, 0.8, 0.8, 1]);
+        }
+      } catch (e) {
+        console.log('Material fix error:', e);
       }
     });
   }
