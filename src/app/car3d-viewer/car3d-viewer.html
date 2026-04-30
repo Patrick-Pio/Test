@@ -1,0 +1,16 @@
+<model-viewer
+  #viewer
+  [src]="model"
+  camera-controls
+  auto-rotate
+  auto-rotate-delay="0"
+  environment-image="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr"
+  exposure="1.2"
+  tone-mapping="aces"
+  shadow-intensity="1"
+  shadow-softness="1"
+  camera-orbit="0deg 75deg 2.5m"
+  field-of-view="45deg"
+  style="width: 100%; height: 100%; display: block;"
+  (load)="onLoad($event)">
+</model-viewer>

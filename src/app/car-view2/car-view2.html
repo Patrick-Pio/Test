@@ -1,70 +1,34 @@
-<model-viewer
-  src="assets/models/car12.glb"
-  camera-controls
-  auto-rotate
-  environment-image="https://modelviewer.dev/shared-assets/environments/aircraft_workshop_01_1k.hdr"
-  exposure="1.2"
-  shadow-intensity="1"
-  shadow-softness="1"
-  tone-mapping="aces"
-  camera-orbit="0deg 75deg 2.5m"
-  field-of-view="45deg"
-  style="width: 100vw; height: 100vh;"
->
-</model-viewer>
+<div class="container">
 
-<!-- OPEN BUTTON — hidden when sheet is open -->
-<button class="arrow-btn" *ngIf="!isOpen" (click)="toggleSheet()">
-  ▲
-</button>
-
-<div class="bottom-sheet" [class.open]="isOpen">
-
-  <div class="sheet-header">
-    <div class="handle"></div>
-    <button class="close-btn" (click)="toggleSheet()">✕</button>
+  <!-- LEFT SIDE (3D VIEW) -->
+  <div class="left">
+    <app-car-3d-viewer [model]="'assets/models/car12.glb'" [useAltFix]="true"></app-car-3d-viewer>
   </div>
 
-  <h2>McLaren MCL39</h2>
+  <!-- RIGHT SIDE (DETAILS) -->
+  <div class="right">
+     <!-- TOP BAR -->
+  <div class="top-bar">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+  </div>
 
-  <div class="details-container">
+    <h2>McLaren MCL39</h2>
 
-    <!-- LEFT SIDE (SPECIFICATIONS) -->
-    <div class="specs">
-      <div class="row">
-        <span>Engine</span>
-        <b>1.6L V6 Turbo Hybrid</b>
-      </div>
-      <div class="row">
-        <span>Power</span>
-        <b>1000+ HP</b>
-      </div>
-      <div class="row">
-        <span>Top Speed</span>
-        <b>350+ km/h</b>
-      </div>
-      <div class="row">
-        <span>0-100 km/h</span>
-        <b>~2.5 sec</b>
-      </div>
-      <div class="row">
-        <span>Fuel Type</span>
-        <b>Hybrid (Petrol + ERS)</b>
-      </div>
-      <div class="row">
-        <span>Transmission</span>
-        <b>8-Speed Semi-Automatic</b>
-      </div>
-      <div class="row">
-        <span>Team</span>
-        <b>McLaren F1 Team</b>
-      </div>
-    </div>
+    <div class="details-container">
 
-    <!-- RIGHT SIDE (DESCRIPTION) -->
-    <div class="description">
-      <p>
-        The McLaren MCL39 is a state-of-the-art Formula 1 car built for
+      <div class="specs">
+        <div class="row"><span>Engine</span><b>1.6L V6 Turbo Hybrid</b></div>
+        <div class="row"><span>Power</span><b>1000+ HP</b></div>
+        <div class="row"><span>Top Speed</span><b>350+ km/h</b></div>
+        <div class="row"><span>0-100 km/h</span><b>~2.5 sec</b></div>
+        <div class="row"><span>Fuel Type</span><b>Hybrid (Petrol + ERS)</b></div>
+        <div class="row"><span>Transmission</span><b>8-Speed Semi-Automatic</b></div>
+        <div class="row"><span>Team</span><b>McLaren F1 Team</b></div>
+      </div>
+
+      <div class="description">
+        <p>
+         The McLaren MCL39 is a state-of-the-art Formula 1 car built for
         the 2025 season, engineered to deliver extreme performance
         and precision on the track. Powered by a 1.6L V6 turbo-hybrid
         power unit, it combines internal combustion with advanced
@@ -75,14 +39,15 @@
         Representing the pinnacle of modern motorsport technology, it
         showcases McLaren's commitment to innovation, performance, and
         sustainability in Formula 1 racing.
-      </p>
+        </p>
+      </div>
+
     </div>
+
+    <button class="test-drive-btn" (click)="goToBooking()">
+      Book Test Drive
+    </button>
 
   </div>
 
-  <!-- BUTTON (BOTTOM RIGHT) -->
-  <button class="test-drive-btn" (click)="goToBooking()">
-  Book Test Drive
-</button>
 </div>
-
