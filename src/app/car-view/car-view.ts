@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./car-view.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CarViewComponent1 implements OnInit, AfterViewInit {
+export class CarViewComponent1 implements OnInit {
   isOpen = false;
 
   toggleSheet() {
@@ -21,22 +21,17 @@ export class CarViewComponent1 implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router
   ) {}
+  goToBooking() {
+  console.log("BUTTON CLICKED");
+  this.router.navigate(['/book1'], {
+    queryParams: {
+      car: 'Ferrari 288 GTO'
+    }
+  });
+}
 
   ngOnInit() {}
 
-  ngAfterViewInit() {
-    // Attach native DOM listener to bypass model-viewer Shadow DOM event blocking
-    const btn = document.querySelector('.test-drive-btn');
-    if (btn) {
-      btn.addEventListener('click', () => {
-        this.router.navigate(['/book1']);
-      });
-    }
-  }
-
-  bookTestDrive(): void {
-    this.router.navigate(['/book1']);
-  }
 
   fixMaterials() {
     const viewer = document.querySelector('#carViewer') as any;

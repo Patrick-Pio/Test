@@ -1,20 +1,30 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-car-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './car-view2.html',
   styleUrls: ['./car-view2.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CarViewComponent2 implements OnInit {
-
   isOpen = false;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
+   goToBooking() {
+    console.log("BUTTON CLICKED");
+  this.router.navigate(['/book1'], {
+    queryParams: {
+      car: 'MCL39 F1'
+    }
+  });
+}
 
   ngOnInit() {}
 

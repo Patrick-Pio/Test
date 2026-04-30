@@ -12,7 +12,8 @@ import { SupabaseService } from '../supabase.service'; // adjust path
   styleUrl: './book1.css',
 })
 export class Book1 implements OnInit {
-  carModel: string = 'Ferrari 288 GTO';
+  isSubmitting: boolean = false;
+  carModel: string = '';
   name: string = '';
   phone: string = '';
   email: string = '';
@@ -34,12 +35,10 @@ export class Book1 implements OnInit {
 ) {}
 
   ngOnInit() {
-    // Auto-fill car from route param if available
-    const carFromRoute = this.route.snapshot.queryParams['car'];
-    if (carFromRoute) {
-      this.carModel = carFromRoute;
-    }
-  }
+  this.route.queryParams.subscribe(params => {
+    this.carModel = params['car'] || 'Unknown Car';
+  });
+}
 
   getMinDate(): string {
     const today = new Date();
@@ -47,13 +46,17 @@ export class Book1 implements OnInit {
   }
 
   async onSubmit() {
+  if (this.isSubmitting) return; // prevent double click
+
+  this.isSubmitting = true;
+
   if (!this.name || !this.phone || !this.email || !this.date || !this.timeSlot) {
     alert('Please fill in all required fields.');
+    this.isSubmitting = false;
     return;
   }
 
   const user = await this.supabaseService.supabase.auth.getUser();
-  console.log("USER:", user);
 
   const bookingData = {
     user_id: user.data.user?.id,
@@ -66,21 +69,18 @@ export class Book1 implements OnInit {
     notes: this.notes
   };
 
-  console.log("SENDING:", bookingData);
-
   const { data, error } = await this.supabaseService.supabase
     .from('bookings')
     .insert([bookingData]);
 
-  console.log("RESPONSE:", data);
-  console.log("ERROR:", error);
-
   if (error) {
     alert("Error: " + error.message);
+    this.isSubmitting = false;
     return;
   }
 
   this.submitted = true;
+  this.isSubmitting = false;
 }
 
   goBack() {

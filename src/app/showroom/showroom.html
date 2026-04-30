@@ -1,11 +1,16 @@
 <div class="container">
-  <h1>Car Showroom</h1>
-
+  
+ <div class="navbar">
+<h1>CAR SHOWROOM</h1>
+  <div class="nav-buttons">
+    <button (click)="goToBookings()">My Bookings</button>
+    <button (click)="logout()">Logout</button>
+  </div>
+</div>
   <!-- ✅ Admin-only button -->
   <button *ngIf="isAdmin" class="add-btn" (click)="goToAddCar()">
     + Add Car
   </button>
-  <button (click)="goToBookings()">My Bookings</button>
 
   <div class="grid">
     
