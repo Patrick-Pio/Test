@@ -44,5 +44,9 @@ export class ShowroomComponent {
   goToBookings() {
   this.router.navigate(['/my-bookings']);
 }
+logout() {
+  localStorage.clear();   // removes login data
+  this.router.navigate(['/login']);
+}
  
 } 

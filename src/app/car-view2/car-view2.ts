@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Car3dViewerComponent } from '../car3d-viewer/car3d-viewer';
 
 @Component({
-  selector: 'app-car-view',
+  selector: 'app-car-view2',
   standalone: true,
   imports: [CommonModule, RouterModule, Car3dViewerComponent],
   templateUrl: './car-view2.html',

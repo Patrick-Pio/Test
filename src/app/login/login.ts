@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { SupabaseService } from '../supabase.service';
@@ -15,10 +15,13 @@ export class LoginComponent {
   email = '';
   password = '';
   showPassword = false;
+  successMessage = '';
+  errorMessage = '';
 
   constructor(
     private supabaseService: SupabaseService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   togglePassword(): void {
@@ -26,19 +29,22 @@ export class LoginComponent {
   }
 
   async login() {
+    this.successMessage = '';
+    this.errorMessage = '';
+
     const { data, error } = await this.supabaseService.supabase.auth.signInWithPassword({
       email: this.email,
       password: this.password
     });
 
     if (error) {
-      alert(error.message);
+      this.errorMessage = error.message;
+      this.cdr.detectChanges();
       return;
     }
 
     const user = data.user;
 
-    // Fetch role from profiles table
     const { data: profile, error: profileError } = await this.supabaseService.supabase
       .from('profiles')
       .select('role')
@@ -47,18 +53,19 @@ export class LoginComponent {
 
     if (profileError) {
       console.error(profileError);
-      alert('Error fetching user role');
+      this.errorMessage = 'Error fetching user role';
+      this.cdr.detectChanges();
       return;
     }
 
     const role = profile?.role || 'user';
-
-    // Store role locally
     localStorage.setItem('role', role);
-    console.log('User role:', role);
-    alert('Login successful!');
 
-    // Navigate
-    this.router.navigate(['/showroom']);
+    this.successMessage = 'Login successful! Redirecting...';
+    this.cdr.detectChanges();
+
+    setTimeout(() => {
+      this.router.navigate(['/showroom']);
+    }, 2500);
   }
 }

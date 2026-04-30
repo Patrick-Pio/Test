@@ -4,7 +4,7 @@
   <div *ngIf="loading">Loading...</div>
 
   <div *ngIf="!loading && bookings.length === 0">
-    <p>No upcoming bookings 🚗</p>
+    <p>No upcoming bookings :(</p>
   </div>
 
   <div class="card" *ngFor="let b of bookings">
