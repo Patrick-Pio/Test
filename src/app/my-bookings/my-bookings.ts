@@ -14,65 +14,82 @@ export class MyBookingsComponent implements OnInit {
 
   bookings: any[] = [];
   loading = true;
+  confirmCancelId: string | null = null;
+  errorMessage: string = '';
 
- constructor(
-  private supabaseService: SupabaseService,
-  private cdr: ChangeDetectorRef
-) {}
+  constructor(
+    private supabaseService: SupabaseService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.getBookings();
   }
 
   async getBookings() {
-  try {
-    this.loading = true;
+    try {
+      this.loading = true;
 
-    const { data: userData, error: userError } =
-      await this.supabaseService.supabase.auth.getUser();
+      const { data: userData } =
+        await this.supabaseService.supabase.auth.getUser();
 
-    const user = userData?.user;
+      const user = userData?.user;
 
-    if (!user) {
+      if (!user) {
+        this.loading = false;
+        return;
+      }
+
+      const { data, error } = await this.supabaseService.supabase
+        .from('bookings')
+        .select('*')
+        .eq('user_id', user.id);
+
+      if (error) {
+        console.error(error);
+        this.loading = false;
+        return;
+      }
+
+      this.bookings = data || [];
       this.loading = false;
-      return;
-    }
+      this.cdr.detectChanges();
 
-    const { data, error } = await this.supabaseService.supabase
-      .from('bookings')
-      .select('*')
-      .eq('user_id', user.id);
-
-    if (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
       this.loading = false;
-      return;
     }
-
-    // ✅ THIS IS WHERE data EXISTS
-    this.bookings = data || [];
-
-    this.loading = false;
-
-    this.cdr.detectChanges();
-
-  } catch (err) {
-    console.error(err);
-    this.loading = false;
   }
-}
 
-  async cancelBooking(id: string) {
-    const confirmDelete = confirm("Cancel this booking?");
-    if (!confirmDelete) return;
+  openCancelConfirm(id: string) {
+    this.confirmCancelId = id;
+    this.errorMessage = '';
+    this.cdr.detectChanges();
+  }
+
+  dismissCancel() {
+    this.confirmCancelId = null;
+    this.cdr.detectChanges();
+  }
+
+  async confirmCancel() {
+    if (!this.confirmCancelId) return;
+
+    const id = this.confirmCancelId;
+    this.confirmCancelId = null;
 
     const { error } = await this.supabaseService.supabase
       .from('bookings')
       .delete()
       .eq('id', id);
 
-    if (!error) {
-      this.getBookings(); // refresh list
+    if (error) {
+      this.errorMessage = 'Failed to cancel booking. Please try again.';
+    } else {
+      this.errorMessage = '';
+      this.getBookings();
     }
+
+    this.cdr.detectChanges();
   }
 }

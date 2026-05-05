@@ -7,6 +7,16 @@
     <p>No upcoming bookings :(</p>
   </div>
 
+  <!-- GLOBAL ERROR BANNER -->
+  <div class="inline-message inline-message--error" *ngIf="errorMessage">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <span>{{ errorMessage }}</span>
+  </div>
+
   <div class="card" *ngFor="let b of bookings">
 
     <h2>{{ b.car_name }}</h2>
@@ -18,7 +28,29 @@
       <strong>Notes:</strong> {{ b.notes }}
     </p>
 
-    <button (click)="cancelBooking(b.id)">Cancel</button>
+    <!-- CANCEL BUTTON -->
+    <button
+      class="btn-cancel"
+      (click)="openCancelConfirm(b.id)"
+      *ngIf="confirmCancelId !== b.id">
+      Cancel
+    </button>
+
+    <!-- INLINE CONFIRM BOX -->
+    <div class="confirm-box" *ngIf="confirmCancelId === b.id">
+      <p class="confirm-text">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align: middle; margin-right: 6px;">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        Are you sure you want to cancel this booking?
+      </p>
+      <div class="confirm-actions">
+        <button class="btn-confirm-yes" (click)="confirmCancel()">Yes, Cancel</button>
+        <button class="btn-confirm-no" (click)="dismissCancel()">Keep It</button>
+      </div>
+    </div>
 
   </div>
 </div>

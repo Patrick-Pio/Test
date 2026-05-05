@@ -66,6 +66,6 @@ export class LoginComponent {
 
     setTimeout(() => {
       this.router.navigate(['/showroom']);
-    }, 2500);
+    }, 1200);
   }
 }

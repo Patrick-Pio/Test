@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule} from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SupabaseService } from '../supabase.service';
 
 @Component({
@@ -10,44 +10,64 @@ import { SupabaseService } from '../supabase.service';
   templateUrl: './showroom.html',
   styleUrls: ['./showroom.css']
 })
-export class ShowroomComponent {
+export class ShowroomComponent implements OnInit {
+
+  cars: any[] = [];
+  loading = true;
 
   constructor(
     private router: Router,
-    private supabaseService: SupabaseService) {}
+    private supabaseService: SupabaseService,
+    private ngZone: NgZone,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-    cars: any[] = [];
-
-  ngOnInit(): void {
-    this.loadCars();
+  async ngOnInit() {
+    await this.loadCars();
   }
 
   async loadCars() {
     try {
-      const data = await this.supabaseService.getCars();
-      console.log('CARS:', data);
+      const { data, error } = await this.supabaseService.supabase
+        .from('cars')
+        .select('name, price, image_url')
+        .order('created_at', { ascending: true });
 
-      this.cars = data ?? [];   // 👈 IMPORTANT (fallback)
+      if (error) throw error;
+
+      this.ngZone.run(() => {
+        this.cars = data || [];
+        this.loading = false;
+        this.cdr.detectChanges();
+      });
+
     } catch (err) {
-      console.error('ERROR:', err);
-      this.cars = [];           // 👈 prevents blank UI issues
+      console.error('Failed to load cars:', err);
+      this.ngZone.run(() => {
+        this.loading = false;
+        this.cdr.detectChanges();
+      });
     }
   }
 
-  // ✅ Better: handle null safely
   get isAdmin(): boolean {
     return localStorage.getItem('role') === 'admin';
   }
-  // ✅ (Optional) Navigate to add car page
+
+  viewDetails(carName: string) {
+    this.router.navigate(['/car', carName]);
+  }
+
   goToAddCar() {
     this.router.navigate(['/add-car']);
   }
+
   goToBookings() {
-  this.router.navigate(['/my-bookings']);
+    this.router.navigate(['/my-bookings']);
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }
-logout() {
-  localStorage.clear();   // removes login data
-  this.router.navigate(['/login']);
-}
- 
-} 
