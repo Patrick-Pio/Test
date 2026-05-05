@@ -35,7 +35,6 @@ h1 {
   margin-bottom: 8px;
 }
 
-/* Gold divider under title */
 h1::after {
   content: '';
   display: block;
@@ -111,17 +110,14 @@ h1::after {
 button {
   margin-top: 20px;
   padding: 10px 24px;
-
   background: transparent;
   border: 1px solid rgba(201, 168, 76, 0.5);
   border-radius: 4px;
-
   color: #c9a84c;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -133,6 +129,96 @@ button:hover {
 }
 
 /* ===================== */
+/* INLINE CONFIRM BOX */
+/* ===================== */
+.confirm-box {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: rgba(201, 168, 76, 0.06);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 4px;
+  animation: fadeIn 0.2s ease both;
+}
+
+.confirm-text {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: rgba(201, 168, 76, 0.85);
+  text-transform: uppercase;
+  margin-bottom: 12px !important;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-confirm-yes {
+  margin-top: 0 !important;
+  padding: 8px 18px;
+  background: transparent;
+  border: 1px solid rgba(200, 80, 80, 0.6);
+  border-radius: 4px;
+  color: rgba(220, 100, 100, 0.9);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-confirm-yes:hover {
+  background: rgba(200, 80, 80, 0.12);
+  border-color: rgba(220, 100, 100, 0.9);
+  box-shadow: 0 0 10px rgba(200, 80, 80, 0.15);
+}
+
+.btn-confirm-no {
+  margin-top: 0 !important;
+  padding: 8px 18px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-confirm-no:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
+
+/* ===================== */
+/* INLINE ERROR MESSAGE */
+/* ===================== */
+.inline-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-family: 'Georgia', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  animation: fadeIn 0.3s ease both;
+}
+
+.inline-message--error {
+  background: rgba(180, 60, 60, 0.08);
+  border: 1px solid rgba(180, 60, 60, 0.35);
+  color: rgba(220, 120, 120, 0.9);
+}
+
+/* ===================== */
 /* LOADING */
 /* ===================== */
 .container > div:first-of-type {
@@ -141,4 +227,12 @@ button:hover {
   text-transform: uppercase;
   font-size: 0.85rem;
   margin-top: 20px;
+}
+
+/* ===================== */
+/* ANIMATIONS */
+/* ===================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
