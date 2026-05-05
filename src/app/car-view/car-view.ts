@@ -1,7 +1,8 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, NgZone, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Car3dViewerComponent } from '../car3d-viewer/car3d-viewer';
+import { SupabaseService } from '../supabase.service';
 
 @Component({
   selector: 'app-car-view',
@@ -11,36 +12,79 @@ import { Car3dViewerComponent } from '../car3d-viewer/car3d-viewer';
   styleUrls: ['./car-view.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class CarViewComponent {
+export class CarViewComponent implements OnInit {
 
-  isOpen = false;
+  loading = true;
+  carName: string = '';
+  engine: string = '';
+  power: string = '';
+  topSpeed: string = '';
+  acceleration: string = '';
+  fuelType: string = '';
+  transmission: string = '';
+  description: string = '';
+  modelPath: string = '';
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private supabaseService: SupabaseService,
+    private ngZone: NgZone,
+    private cdr: ChangeDetectorRef
   ) {}
 
-  toggleSheet() {
-    this.isOpen = !this.isOpen;
+  async ngOnInit() {
+    this.route.params.subscribe(async params => {
+      const raw = params['name'];
+      const name = decodeURIComponent(decodeURIComponent(raw));
+      console.log('Car name:', name);
+      if (name) await this.loadCar(name);
+    });
   }
 
-  fixMaterials() {
-    // Add any material fix logic here if needed
+  async loadCar(name: string) {
+    this.loading = true;
+    try {
+      const { data, error } = await this.supabaseService.supabase
+        .from('cars')
+        .select('*')
+        .eq('name', name)
+        .single();
+
+      if (error) throw error;
+
+      this.ngZone.run(() => {
+        if (data) {
+          this.carName      = data.name;
+          this.engine       = data.engine;
+          this.power        = data.power;
+          this.topSpeed     = data.top_speed;
+          this.acceleration = data.acceleration;
+          this.fuelType     = data.fuel_type;
+          this.transmission = data.transmission;
+          this.description  = data.description;
+          this.modelPath    = data.model_path || 'assets/models/car1.glb';
+          this.loading      = false;
+          this.cdr.detectChanges();
+        }
+      });
+
+    } catch (err) {
+      console.error('Failed to load car:', err);
+      this.ngZone.run(() => {
+        this.loading = false;
+        this.cdr.detectChanges();
+      });
+    }
   }
 
   goBack() {
     this.router.navigate(['/showroom']);
   }
 
-  goToBooking() {
-    this.router.navigate(['/book1'], {
-      queryParams: {
-        car: 'Ferrari 288 GTO'
-      }
-    });
-  }
-
   bookTestDrive() {
-    this.goToBooking();
+    this.router.navigate(['/book1'], {
+      queryParams: { car: this.carName }
+    });
   }
 }

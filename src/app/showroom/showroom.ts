@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { SupabaseService } from '../supabase.service';
 
 @Component({
   selector: 'app-showroom',
@@ -9,50 +10,64 @@ import { Router } from '@angular/router';
   templateUrl: './showroom.html',
   styleUrls: ['./showroom.css']
 })
-export class ShowroomComponent {
+export class ShowroomComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  cars: any[] = [];
+  loading = true;
 
-  cars = [
-    {
-      name: 'Ferrari 288 GTO',
-      price: '₹1,20,00,000',
-      image: 'https://images.squarespace-cdn.com/content/v1/5caed8960cf57d49530e8c60/353917e2-f8e9-45e6-8f3f-11a0a0bd6a11/01.jpg?format=2500w',
-      route: '/car-view1'
-    },
-    {
-      name: 'MCL39 F1',
-      price: '₹30,00,00,000',
-      image: 'https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000001/fom-website/2023/McLaren/Formula%201%20header%20template%20(35).webp',
-      route: '/car-view2'
-    },
-    {
-      name: 'Bugatti Bolide',
-      price: '₹50,00,00,000',
-      image: 'assets/08 BUGATTI BOLIDE at COTA.jpg',
-      route: '/car-view3'
+  constructor(
+    private router: Router,
+    private supabaseService: SupabaseService,
+    private ngZone: NgZone,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  async ngOnInit() {
+    await this.loadCars();
+  }
+
+  async loadCars() {
+    try {
+      const { data, error } = await this.supabaseService.supabase
+        .from('cars')
+        .select('name, price, image_url')
+        .order('created_at', { ascending: true });
+
+      if (error) throw error;
+
+      this.ngZone.run(() => {
+        this.cars = data || [];
+        this.loading = false;
+        this.cdr.detectChanges();
+      });
+
+    } catch (err) {
+      console.error('Failed to load cars:', err);
+      this.ngZone.run(() => {
+        this.loading = false;
+        this.cdr.detectChanges();
+      });
     }
-  ];
+  }
 
-  // ✅ Better: handle null safely
   get isAdmin(): boolean {
     return localStorage.getItem('role') === 'admin';
   }
 
-  // ✅ Better: type safety (optional but good practice)
-  viewDetails(route: string) {
-  this.router.navigateByUrl(route);
+  viewDetails(carName: string) {
+    this.router.navigate(['/car', carName]);
   }
-  // ✅ (Optional) Navigate to add car page
+
   goToAddCar() {
     this.router.navigate(['/add-car']);
   }
+
   goToBookings() {
-  this.router.navigate(['/my-bookings']);
+    this.router.navigate(['/my-bookings']);
+  }
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+  }
 }
-logout() {
-  localStorage.clear();   // removes login data
-  this.router.navigate(['/login']);
-}
- 
-} 

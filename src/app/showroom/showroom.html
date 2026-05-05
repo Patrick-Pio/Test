@@ -1,31 +1,23 @@
 <div class="container">
-  
- <div class="navbar">
-<h1>CAR SHOWROOM</h1>
-  <div class="nav-buttons">
-    <!-- ✅ Admin-only button -->
-  <button *ngIf="isAdmin" class="add-btn" (click)="goToAddCar()">
-    + Add Car
-  </button>
-    <button (click)="goToBookings()">My Bookings</button>
-    <button (click)="logout()">Logout</button>
+
+  <div class="navbar">
+    <h1>CAR SHOWROOM</h1>
+    <div class="nav-buttons">
+      <button *ngIf="isAdmin" class="add-btn" (click)="goToAddCar()">+ Add Car</button>
+      <button (click)="goToBookings()">My Bookings</button>
+      <button (click)="logout()">Logout</button>
+    </div>
   </div>
-</div>
 
-  <div class="grid">
-    
+  <div *ngIf="loading" class="loading-state">Loading...</div>
+
+  <div class="grid" *ngIf="!loading">
     <div class="card" *ngFor="let car of cars">
-
-      <!-- Car Image -->
-      <img [src]="car.image" alt="car">
-
-      <!-- Car Details -->
+      <img [src]="car.image_url" alt="{{ car.name }}">
       <h2>{{ car.name }}</h2>
       <p>{{ car.price }}</p>
-
-      <!-- View Details -->
-    <button (click)="viewDetails(car.route)">View Details</button>
+      <button (click)="viewDetails(car.name)">View Details</button>
     </div>
-
   </div>
+
 </div>
