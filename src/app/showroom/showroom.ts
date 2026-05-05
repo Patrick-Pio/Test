@@ -1,47 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule} from '@angular/router';
+import { SupabaseService } from '../supabase.service';
 
 @Component({
   selector: 'app-showroom',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './showroom.html',
   styleUrls: ['./showroom.css']
 })
 export class ShowroomComponent {
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private supabaseService: SupabaseService) {}
 
-  cars = [
-    {
-      name: 'Ferrari 288 GTO',
-      price: '₹1,20,00,000',
-      image: 'https://images.squarespace-cdn.com/content/v1/5caed8960cf57d49530e8c60/353917e2-f8e9-45e6-8f3f-11a0a0bd6a11/01.jpg?format=2500w',
-      route: '/car-view1'
-    },
-    {
-      name: 'MCL39 F1',
-      price: '₹30,00,00,000',
-      image: 'https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000001/fom-website/2023/McLaren/Formula%201%20header%20template%20(35).webp',
-      route: '/car-view2'
-    },
-    {
-      name: 'Bugatti Bolide',
-      price: '₹50,00,00,000',
-      image: 'assets/08 BUGATTI BOLIDE at COTA.jpg',
-      route: '/car-view3'
+    cars: any[] = [];
+
+  ngOnInit(): void {
+    this.loadCars();
+  }
+
+  async loadCars() {
+    try {
+      const data = await this.supabaseService.getCars();
+      console.log('CARS:', data);
+
+      this.cars = data ?? [];   // 👈 IMPORTANT (fallback)
+    } catch (err) {
+      console.error('ERROR:', err);
+      this.cars = [];           // 👈 prevents blank UI issues
     }
-  ];
+  }
 
   // ✅ Better: handle null safely
   get isAdmin(): boolean {
     return localStorage.getItem('role') === 'admin';
-  }
-
-  // ✅ Better: type safety (optional but good practice)
-  viewDetails(route: string) {
-  this.router.navigateByUrl(route);
   }
   // ✅ (Optional) Navigate to add car page
   goToAddCar() {
