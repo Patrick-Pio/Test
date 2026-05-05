@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { SupabaseService } from '../supabase.service'; // adjust path
+import { SupabaseService } from '../supabase.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-book1',
@@ -21,6 +22,7 @@ export class Book1 implements OnInit {
   timeSlot: string = '';
   notes: string = '';
   submitted: boolean = false;
+  userId: string | null = null;
 
   timeSlots: string[] = [
   '09:00', '10:00', '11:00',
@@ -31,13 +33,26 @@ export class Book1 implements OnInit {
  constructor(
   private router: Router,
   private route: ActivatedRoute,
-  private supabaseService: SupabaseService
+  private supabaseService: SupabaseService,
+  private cdr: ChangeDetectorRef   
 ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
   this.route.queryParams.subscribe(params => {
     this.carModel = params['car'] || 'Unknown Car';
   });
+
+  const { data: { session } } = await this.supabaseService.supabase.auth.getSession();
+
+  if (!session) {
+    alert("Session not found. Please login again.");
+    this.router.navigate(['/login']);
+    return;
+  }
+
+  this.userId = session.user.id;
+
+  console.log("User ID:", this.userId); // ✅ should NOT be null now
 }
 
   getMinDate(): string {
@@ -45,42 +60,56 @@ export class Book1 implements OnInit {
     return today.toISOString().split('T')[0];
   }
 
-  async onSubmit() {
-  if (this.isSubmitting) return; // prevent double click
+ async onSubmit() {
+  console.log("STEP 0: SUBMIT CALLED");
 
+  if (this.isSubmitting) return;
   this.isSubmitting = true;
 
-  if (!this.name || !this.phone || !this.email || !this.date || !this.timeSlot) {
-    alert('Please fill in all required fields.');
+  try {
+    console.log("STEP 1: Checking user");
+
+    if (!this.userId) {
+      console.log("USER ID IS NULL ❌");
+      throw new Error("User not logged in");
+    }
+
+    console.log("STEP 2: Preparing data");
+
+    const bookingData = {
+      user_id: this.userId,
+      car_name: this.carModel,
+      full_name: this.name,
+      phone: this.phone,
+      email: this.email,
+      date: this.date,
+      time_slot: this.timeSlot,
+      notes: this.notes
+    };
+
+    console.log("STEP 3: Before upsert", bookingData);
+
+    const { data, error } = await this.supabaseService.supabase
+      .from('bookings')
+      .upsert([bookingData], {
+  onConflict: 'user_id,car_name,date'
+});
+
+    console.log("STEP 4: After upsert", data, error);
+
+    if (error) throw error;
+
+    console.log("STEP 5: Success");
+    this.submitted = true;
+    this.cdr.detectChanges();
+
+  } catch (err: any) {
+    console.error("STEP ERROR:", err);
+    alert(err.message || "Error");
+  } finally {
+    console.log("STEP 6: Finally");
     this.isSubmitting = false;
-    return;
   }
-
-  const user = await this.supabaseService.supabase.auth.getUser();
-
-  const bookingData = {
-    user_id: user.data.user?.id,
-    car_name: this.carModel,
-    full_name: this.name,
-    phone: this.phone,
-    email: this.email,
-    date: this.date,
-    time_slot: this.timeSlot,
-    notes: this.notes
-  };
-
-  const { data, error } = await this.supabaseService.supabase
-    .from('bookings')
-    .insert([bookingData]);
-
-  if (error) {
-    alert("Error: " + error.message);
-    this.isSubmitting = false;
-    return;
-  }
-
-  this.submitted = true;
-  this.isSubmitting = false;
 }
 
   goBack() {

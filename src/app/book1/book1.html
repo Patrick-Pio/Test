@@ -62,7 +62,7 @@
       <span>{{ carModel }}</span>
     </div>
 
-    <form (ngSubmit)="onSubmit()">
+    <form>
 
       <!-- NAME -->
       <div class="field-group">
@@ -145,7 +145,16 @@
         <textarea [(ngModel)]="notes" name="notes" placeholder="Any special requests or questions..." rows="3"></textarea>
       </div>
 
-      <button type="submit" class="btn-submit"><span class="btn-text">Confirm Booking</span></button>
+      <button 
+  type="button" 
+  class="btn-submit"
+  (click)="onSubmit()"
+  [disabled]="isSubmitting">
+
+  <span class="btn-text">
+  {{ submitted ? 'Booked' : (isSubmitting ? 'Booking...' : 'Confirm Booking') }}
+</span>
+</button>
     </form>
   </div>
 </div>
