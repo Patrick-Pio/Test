@@ -25,6 +25,12 @@ export class ShowroomComponent {
       price: '₹30,00,00,000',
       image: 'https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000001/fom-website/2023/McLaren/Formula%201%20header%20template%20(35).webp',
       route: '/car-view2'
+    },
+    {
+      name: 'Bugatti Bolide',
+      price: '₹50,00,00,000',
+      image: 'assets/08 BUGATTI BOLIDE at COTA.jpg',
+      route: '/car-view3'
     }
   ];
 

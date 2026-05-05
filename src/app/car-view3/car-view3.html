@@ -1,0 +1,48 @@
+<div class="container">
+
+  <!-- LEFT SIDE (3D VIEW) -->
+  <div class="left">
+    <app-car-3d-viewer [model]="'assets/models/car4.glb'"></app-car-3d-viewer>
+  </div>
+
+  <!-- RIGHT SIDE (DETAILS) -->
+  <div class="right">
+     <!-- TOP BAR -->
+  <div class="top-bar">
+    <button class="back-btn" (click)="goBack()">← Back</button>
+  </div>
+
+    <h2>Bugatti Bolide</h2>
+
+    <div class="details-container">
+
+      <div class="specs">
+        <div class="row"><span>Engine</span><b>3.0L Twin Turbo</b></div>
+        <div class="row"><span>Power</span><b>473 HP</b></div>
+        <div class="row"><span>Top Speed</span><b>250 km/h</b></div>
+        <div class="row"><span>0-100 km/h</span><b>4.1 sec</b></div>
+        <div class="row"><span>Fuel Type</span><b>Petrol</b></div>
+        <div class="row"><span>Transmission</span><b>Automatic</b></div>
+      </div>
+
+      <div class="description">
+        <p>
+          The Bugatti Bolide is a legendary supercar known for its aggressive design
+          and race-inspired performance. Built as Bugatti's first true supercar of the
+          modern era, it features a twin-turbocharged V8 engine that delivers exceptional
+          speed, power, and precision.
+          Originally developed for Group B racing, the Bolide combines lightweight
+          construction with advanced aerodynamics, making it both rare and highly
+          desirable.
+        </p>
+      </div>
+
+    </div>
+
+    <button class="test-drive-btn" (click)="goToBooking()">
+      Book Test Drive
+    </button>
+
+  </div>
+
+</div>
