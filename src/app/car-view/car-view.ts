@@ -13,13 +13,24 @@ import { Car3dViewerComponent } from '../car3d-viewer/car3d-viewer';
 })
 export class CarViewComponent {
 
+  isOpen = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router
   ) {}
+
+  toggleSheet() {
+    this.isOpen = !this.isOpen;
+  }
+
+  fixMaterials() {
+    // Add any material fix logic here if needed
+  }
+
   goBack() {
-  this.router.navigate(['/showroom']); 
-}
+    this.router.navigate(['/showroom']);
+  }
 
   goToBooking() {
     this.router.navigate(['/book1'], {
@@ -27,5 +38,9 @@ export class CarViewComponent {
         car: 'Ferrari 288 GTO'
       }
     });
+  }
+
+  bookTestDrive() {
+    this.goToBooking();
   }
 }

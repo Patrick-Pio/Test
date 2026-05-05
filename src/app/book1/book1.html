@@ -145,7 +145,10 @@
         <textarea [(ngModel)]="notes" name="notes" placeholder="Any special requests or questions..." rows="3"></textarea>
       </div>
 
-      <button type="submit" class="btn-submit"><span class="btn-text">Confirm Booking</span></button>
+      <button type="submit" class="btn-submit" [disabled]="isSubmitting">
+        <span class="btn-text">{{ isSubmitting ? 'Confirming...' : 'Confirm Booking' }}</span>
+      </button>
+
     </form>
   </div>
 </div>
