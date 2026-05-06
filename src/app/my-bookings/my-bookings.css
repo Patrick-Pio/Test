@@ -24,6 +24,34 @@ body {
 }
 
 /* ===================== */
+/* BACK BUTTON */
+/* ===================== */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 28px;
+  padding: 8px 18px;
+  background: transparent;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 4px;
+  color: rgba(201, 168, 76, 0.7);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-back:hover {
+  background: rgba(201, 168, 76, 0.08);
+  border-color: rgba(201, 168, 76, 0.7);
+  color: #c9a84c;
+  box-shadow: 0 0 10px rgba(201, 168, 76, 0.15);
+}
+
+/* ===================== */
 /* TITLE */
 /* ===================== */
 h1 {
