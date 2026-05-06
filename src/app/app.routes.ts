@@ -26,5 +26,9 @@ export const routes: Routes = [
   {
     path: 'car3d-viewer',
     loadComponent: () => import('./car3d-viewer/car3d-viewer').then(m => m.Car3dViewerComponent)
+  },
+  {
+    path: 'add-car',
+    loadComponent: () => import('./add-car/add-car').then(m => m.AddCarComponent)
   }
 ];

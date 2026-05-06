@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupabaseService } from '../supabase.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-bookings',
@@ -19,11 +20,16 @@ export class MyBookingsComponent implements OnInit {
 
   constructor(
     private supabaseService: SupabaseService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.getBookings();
+  }
+
+  goBack() {
+    this.router.navigate(['/showroom']);
   }
 
   async getBookings() {

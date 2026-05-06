@@ -1,4 +1,14 @@
 <div class="container">
+
+  <button class="btn-back" (click)="goBack()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2"
+         style="vertical-align: middle; margin-right: 6px;">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    Showroom
+  </button>
+
   <h1>My Bookings</h1>
 
   <div *ngIf="loading">Loading...</div>
@@ -7,7 +17,6 @@
     <p>No upcoming bookings :(</p>
   </div>
 
-  <!-- GLOBAL ERROR BANNER -->
   <div class="inline-message inline-message--error" *ngIf="errorMessage">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
       <circle cx="12" cy="12" r="10"/>
@@ -28,7 +37,6 @@
       <strong>Notes:</strong> {{ b.notes }}
     </p>
 
-    <!-- CANCEL BUTTON -->
     <button
       class="btn-cancel"
       (click)="openCancelConfirm(b.id)"
@@ -36,7 +44,6 @@
       Cancel
     </button>
 
-    <!-- INLINE CONFIRM BOX -->
     <div class="confirm-box" *ngIf="confirmCancelId === b.id">
       <p class="confirm-text">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="vertical-align: middle; margin-right: 6px;">
