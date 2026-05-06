@@ -3,6 +3,7 @@ import { ShowroomComponent } from './showroom/showroom';
 import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
 import { Book1 } from './book1/book1';
+import { AddCarComponent } from './add-car/add-car';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -17,6 +18,10 @@ export const routes: Routes = [
   {
     path: 'my-bookings',
     loadComponent: () => import('./my-bookings/my-bookings').then(m => m.MyBookingsComponent)
+  },
+  {
+    path: 'add-car',
+    loadComponent: () => import('./add-car/add-car').then(m => m.AddCarComponent)
   },
   {
     path: 'car3d-viewer',
