@@ -9,6 +9,10 @@
     </div>
   </div>
 
+  <div class="msg success" *ngIf="carAdded">
+    🚗 Car added successfully!
+  </div>
+
   <div *ngIf="loading" class="loading-state">Loading...</div>
 
   <div class="grid" *ngIf="!loading">

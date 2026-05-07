@@ -27,46 +27,41 @@ export class AddCarComponent {
     model_path: ''
   };
 
+  errorMessage: string = '';
+  isLoading: boolean = false;
+
   constructor(
     private router: Router,
-  private supabaseService: SupabaseService) {}
+    private supabaseService: SupabaseService) {}
 
   goBack() {
     this.router.navigate(['/showroom']);
   }
 
   async addCar() {
+    this.errorMessage = '';
 
-    if (
-      !this.car.name ||
-      !this.car.price ||
-      !this.car.engine ||
-      !this.car.power ||
-      !this.car.top_speed ||
-      !this.car.acceleration ||
-      !this.car.fuel_type ||
-      !this.car.transmission ||
-      !this.car.description ||
-      !this.car.image_url ||
-      !this.car.model_path
-    ) {
-      alert('Please fill all fields');
+    const allFilled = Object.values(this.car).every(v => v.trim() !== '');
+
+    if (!allFilled) {
+      this.errorMessage = 'Please fill in all fields before submitting.';
       return;
     }
 
-    const { error } = await this.supabaseService.supabase 
+    this.isLoading = true;
+
+    const { error } = await this.supabaseService.supabase
       .from('cars')
       .insert([this.car]);
 
+    this.isLoading = false;
+
     if (error) {
       console.error('SUPABASE ERROR:', error);
-      alert(JSON.stringify(error));
-      alert('Failed to add car');
+      this.errorMessage = 'Failed to add car. Please try again.';
       return;
     }
 
-    alert('Car added successfully!');
-
-    this.router.navigate(['/showroom']);
+    this.router.navigate(['/showroom'], { queryParams: { added: 'true' } });
   }
 }

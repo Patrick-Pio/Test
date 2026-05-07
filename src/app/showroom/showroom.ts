@@ -1,6 +1,6 @@
 import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { SupabaseService } from '../supabase.service';
 
 @Component({
@@ -14,15 +14,28 @@ export class ShowroomComponent implements OnInit {
 
   cars: any[] = [];
   loading = true;
+  carAdded = false;
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private supabaseService: SupabaseService,
     private ngZone: NgZone,
     private cdr: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params['added'] === 'true') {
+        this.carAdded = true;
+        this.router.navigate([], { queryParams: {}, replaceUrl: true });
+        setTimeout(() => {
+          this.carAdded = false;
+          this.cdr.detectChanges();
+        }, 4000);
+      }
+    });
+
     await this.loadCars();
   }
 

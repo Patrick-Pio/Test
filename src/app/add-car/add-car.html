@@ -4,30 +4,26 @@
 
     <h1>Add New Car</h1>
 
+    <div class="msg error" *ngIf="errorMessage">
+      ✕ {{ errorMessage }}
+    </div>
+
     <form (ngSubmit)="addCar()">
-      <input type="text" placeholder="Car Name" [(ngModel)]="car.name" name="name" required>
+      <input type="text" placeholder="Car Name" [(ngModel)]="car.name" name="name">
+      <input type="text" placeholder="Price" [(ngModel)]="car.price" name="price">
+      <input type="text" placeholder="Engine" [(ngModel)]="car.engine" name="engine">
+      <input type="text" placeholder="Power" [(ngModel)]="car.power" name="power">
+      <input type="text" placeholder="Top Speed" [(ngModel)]="car.top_speed" name="top_speed">
+      <input type="text" placeholder="0-100 km/h" [(ngModel)]="car.acceleration" name="acceleration">
+      <input type="text" placeholder="Fuel Type" [(ngModel)]="car.fuel_type" name="fuel_type">
+      <input type="text" placeholder="Transmission" [(ngModel)]="car.transmission" name="transmission">
+      <textarea placeholder="Description" [(ngModel)]="car.description" name="description"></textarea>
+      <input type="text" placeholder="Image URL" [(ngModel)]="car.image_url" name="image_url">
+      <input type="text" placeholder="Model URL" [(ngModel)]="car.model_path" name="model_path">
 
-      <input type="text" placeholder="price" [(ngModel)]="car.price" name="price" required>
-
-      <input type="text" placeholder="Engine" [(ngModel)]="car.engine" name="engine" required>
-
-      <input type="text" placeholder="Power" [(ngModel)]="car.power" name="power" required>
-
-      <input type="text" placeholder="Top Speed" [(ngModel)]="car.top_speed" name="top_speed" required>
-
-      <input type="text" placeholder="0-100 km/h" [(ngModel)]="car.acceleration" name="acceleration" required>
-
-      <input type="text" placeholder="Fuel Type" [(ngModel)]="car.fuel_type" name="fuel_type" required>
-
-      <input type="text" placeholder="Transmission" [(ngModel)]="car.transmission" name="transmission" required>
-
-      <textarea placeholder="Description" [(ngModel)]="car.description" name="description" required></textarea>
-
-      <input type="text" placeholder="Image URL" [(ngModel)]="car.image_url" name="image_url" required>
-      
-      <input type="text" placeholder="Model URL" [(ngModel)]="car.model_path" name="model_path" required>
-
-      <button type="submit">Add Car</button>
+      <button type="submit" [disabled]="isLoading">
+        {{ isLoading ? 'Adding...' : 'Add Car' }}
+      </button>
     </form>
   </div>
 </div>
