@@ -1,27 +1,31 @@
 <div class="add-car-page">
   <div class="add-car-box">
-    <button class="back-btn" type="button" routerLink="/showroom">← Back</button>
+    <button class="back-btn" type="button" (click)="goBack()">← Back</button>
 
     <h1>Add New Car</h1>
 
     <form (ngSubmit)="addCar()">
       <input type="text" placeholder="Car Name" [(ngModel)]="car.name" name="name" required>
 
+      <input type="text" placeholder="price" [(ngModel)]="car.price" name="price" required>
+
       <input type="text" placeholder="Engine" [(ngModel)]="car.engine" name="engine" required>
 
       <input type="text" placeholder="Power" [(ngModel)]="car.power" name="power" required>
 
-      <input type="text" placeholder="Top Speed" [(ngModel)]="car.topSpeed" name="topSpeed" required>
+      <input type="text" placeholder="Top Speed" [(ngModel)]="car.top_speed" name="top_speed" required>
 
       <input type="text" placeholder="0-100 km/h" [(ngModel)]="car.acceleration" name="acceleration" required>
 
-      <input type="text" placeholder="Fuel Type" [(ngModel)]="car.fuelType" name="fuelType" required>
+      <input type="text" placeholder="Fuel Type" [(ngModel)]="car.fuel_type" name="fuel_type" required>
 
       <input type="text" placeholder="Transmission" [(ngModel)]="car.transmission" name="transmission" required>
 
       <textarea placeholder="Description" [(ngModel)]="car.description" name="description" required></textarea>
 
-      <input type="text" placeholder="Image URL" [(ngModel)]="car.imageUrl" name="imageUrl" required>
+      <input type="text" placeholder="Image URL" [(ngModel)]="car.image_url" name="image_url" required>
+      
+      <input type="text" placeholder="Model URL" [(ngModel)]="car.model_path" name="model_path" required>
 
       <button type="submit">Add Car</button>
     </form>
