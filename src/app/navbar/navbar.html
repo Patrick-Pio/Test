@@ -4,7 +4,7 @@
   </div>
 
   <div class="nav-buttons">
-    <button routerLink="/add-car">+ ADD CAR</button>
+    <button *ngIf="isAdmin" routerLink="/add-car">+ ADD CAR</button>
     <button routerLink="/my-bookings">MY BOOKINGS</button>
     <button class="logout-btn" (click)="logout()">LOGOUT</button>
   </div>
