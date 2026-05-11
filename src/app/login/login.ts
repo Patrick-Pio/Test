@@ -46,10 +46,10 @@ export class LoginComponent {
     const user = data.user;
 
     const { data: profile, error: profileError } = await this.supabaseService.supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single();
+  .from('profiles')
+  .select('role')
+  .eq('id', user.id)
+  .maybeSingle();
 
     if (profileError) {
       console.error(profileError);

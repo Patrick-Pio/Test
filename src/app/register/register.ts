@@ -29,25 +29,29 @@ export class RegisterComponent {
   }
 
   async register() {
-    this.successMessage = '';
-    this.errorMessage = '';
+  this.successMessage = '';
+  this.errorMessage = '';
 
-    const { error } = await this.supabaseService.supabase.auth.signUp({
-  email: this.email,
-  password: this.password,
-  options: {
-    emailRedirectTo: 'https://test-alpha-rose-37.vercel.app'
-  }
-});
+  const { data, error } =
+    await this.supabaseService.supabase.auth.signUp({
+      email: this.email,
+      password: this.password,
+      options: {
+        emailRedirectTo: 'https://test-alpha-rose-37.vercel.app'
+      }
+    });
 
-    if (error) {
-      this.errorMessage = error.message;
-      this.cdr.detectChanges();
-      return;
-    }
+  console.log('SIGNUP DATA:', data);
+  console.log('SIGNUP ERROR:', error);
 
-    this.successMessage = 'Registered successfully! Redirecting to login...';
+  if (error) {
+    this.errorMessage = error.message;
     this.cdr.detectChanges();
+    return;
+  }
+
+  this.successMessage = 'Check your email!';
+  this.cdr.detectChanges();
 
     setTimeout(() => {
       this.router.navigate(['/login']);
