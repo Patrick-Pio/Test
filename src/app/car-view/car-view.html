@@ -6,7 +6,6 @@
       [model]="modelPath">
     </app-car-3d-viewer>
 
-    <!-- Overlay label at bottom-left -->
     <div class="car-overlay" *ngIf="!loading">
       <span class="badge">PERFORMANCE VEHICLE</span>
       <h1 class="car-title">{{ carName }}</h1>
@@ -18,13 +17,8 @@
   <div class="right">
     <div class="top-bar">
       <button class="back-btn" (click)="goBack()">← Back</button>
-      <div class="nav-links">
-        <a class="nav-link">My Bookings</a>
-        <a class="nav-link">Logout</a>
-      </div>
     </div>
 
-    <!-- LOADING STATE -->
     <div *ngIf="loading" class="loading-state">Loading...</div>
 
     <ng-container *ngIf="!loading">
@@ -34,33 +28,37 @@
         <p class="price">{{ price || '₹—' }}</p>
       </div>
 
-      <!-- SPEC CARDS -->
       <div class="spec-grid">
         <div class="spec-card">
           <div class="spec-label">ENGINE</div>
           <div class="spec-value">{{ engine }}</div>
           <i class="spec-icon">⚙</i>
         </div>
+
         <div class="spec-card">
           <div class="spec-label">POWER</div>
           <div class="spec-value">{{ power }}</div>
           <i class="spec-icon">⚡</i>
         </div>
+
         <div class="spec-card">
           <div class="spec-label">TOP SPEED</div>
           <div class="spec-value">{{ topSpeed }}</div>
           <i class="spec-icon">◎</i>
         </div>
+
         <div class="spec-card">
           <div class="spec-label">0-100 KM/H</div>
           <div class="spec-value">{{ acceleration }}</div>
           <i class="spec-icon">⏱</i>
         </div>
+
         <div class="spec-card" *ngIf="fuelType">
           <div class="spec-label">FUEL TYPE</div>
           <div class="spec-value">{{ fuelType }}</div>
           <i class="spec-icon">⛽</i>
         </div>
+
         <div class="spec-card" *ngIf="transmission">
           <div class="spec-label">TRANSMISSION</div>
           <div class="spec-value">{{ transmission }}</div>
@@ -68,14 +66,15 @@
         </div>
       </div>
 
-      <!-- DESCRIPTION -->
       <p class="description" *ngIf="description">{{ description }}</p>
 
-      <!-- CTA BUTTON -->
       <button class="cta-btn" (click)="bookTestDrive()">
         Book Private Viewing →
       </button>
-      <p class="cta-note">* Viewing strictly by appointment or verified booking only.</p>
+
+      <p class="cta-note">
+        * Viewing strictly by appointment or verified booking only.
+      </p>
     </ng-container>
   </div>
 </div>

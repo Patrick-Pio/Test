@@ -1,22 +1,19 @@
 <div class="sw-wrap">
 
-  <!-- ── NAVBAR ── -->
-  <nav class="sw-nav">
-    <span class="sw-nav__logo">APEX PERFORMANCE MOTORS</span>
-    <div class="sw-nav__actions">
-      <button *ngIf="isAdmin" class="sw-btn sw-btn--ghost" (click)="goToAddCar()">+ Add Car</button>
-      <button class="sw-btn sw-btn--ghost" (click)="goToBookings()">My Bookings</button>
-      <button class="sw-btn sw-btn--red" (click)="logout()">Logout</button>
-    </div>
-  </nav>
-
   <!-- ── SUCCESS TOAST ── -->
-  <div class="sw-toast" *ngIf="carAdded">🚗 Car added successfully!</div>
+  <div class="sw-toast" *ngIf="carAdded">
+    🚗 Car added successfully!
+  </div>
 
   <!-- ── HERO ── -->
   <section class="sw-hero">
     <p class="sw-hero__eyebrow">The Curated Collection</p>
-    <h1 class="sw-hero__title">ELITE<br>PERFORMANCE</h1>
+
+    <h1 class="sw-hero__title">
+      ELITE<br>
+      PERFORMANCE
+    </h1>
+
     <p class="sw-hero__desc">
       Experience the pinnacle of automotive engineering. Our current inventory
       features track-focused marvels and iconic heritage legends, meticulously
@@ -32,10 +29,15 @@
 
   <!-- ── GRID ── -->
   <div class="sw-grid" *ngIf="!loading">
+
     <div class="sw-card" *ngFor="let car of cars">
 
       <div class="sw-card__img-wrap">
-        <img class="sw-card__img" [src]="car.image_url" [alt]="car.name">
+        <img
+          class="sw-card__img"
+          [src]="car.image_url"
+          [alt]="car.name"
+        >
       </div>
 
       <div class="sw-card__body">
@@ -48,32 +50,56 @@
         <p class="sw-card__price-label">Price Indicative</p>
         <p class="sw-card__price">{{ car.price }}</p>
 
-        <!-- Specs row: only shows if your car object has spec fields -->
+        <!-- SPECS -->
         <div class="sw-specs" *ngIf="car.spec1_label">
+
           <div class="sw-specs__cell">
-            <span class="sw-specs__label">{{ car.spec1_label }}</span>
-            <span class="sw-specs__val">{{ car.spec1_value }}</span>
+            <span class="sw-specs__label">
+              {{ car.spec1_label }}
+            </span>
+
+            <span class="sw-specs__val">
+              {{ car.spec1_value }}
+            </span>
           </div>
+
           <div class="sw-specs__divider"></div>
+
           <div class="sw-specs__cell">
-            <span class="sw-specs__label">{{ car.spec2_label }}</span>
-            <span class="sw-specs__val">{{ car.spec2_value }}</span>
+            <span class="sw-specs__label">
+              {{ car.spec2_label }}
+            </span>
+
+            <span class="sw-specs__val">
+              {{ car.spec2_value }}
+            </span>
           </div>
+
         </div>
 
-        <button class="sw-btn sw-btn--detail" (click)="viewDetails(car.name)">
-          VIEW DETAILS &rarr;
+        <button
+          class="sw-btn sw-btn--detail"
+          (click)="viewDetails(car.name)"
+        >
+          VIEW DETAILS →
         </button>
 
       </div>
     </div>
+
   </div>
 
   <!-- ── FOOTER ── -->
   <footer class="sw-footer">
+
     <div>
-      <p class="sw-footer__logo">APEX PERFORMANCE MOTORS</p>
-      <p class="sw-footer__copy">© 2024 APEX PERFORMANCE MOTORS. ALL RIGHTS RESERVED.</p>
+      <p class="sw-footer__logo">
+        APEX PERFORMANCE MOTORS
+      </p>
+
+      <p class="sw-footer__copy">
+        © 2024 APEX PERFORMANCE MOTORS. ALL RIGHTS RESERVED.
+      </p>
     </div>
 
   </footer>

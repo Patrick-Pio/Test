@@ -1,0 +1,52 @@
+.top-nav {
+  width: 100%;
+  height: 68px;
+  background: #090909;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 46px;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.brand {
+  color: white;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  cursor: pointer;
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-buttons button {
+  height: 42px;
+  padding: 0 28px;
+  background: transparent;
+  color: white;
+  border: 1px solid #333;
+  font-weight: 800;
+  letter-spacing: 2px;
+  cursor: pointer;
+}
+
+.nav-buttons button:hover {
+  background: #1a1a1a;
+}
+
+.logout-btn {
+  background: #ef3b35 !important;
+  border: none !important;
+}
+
+.logout-btn:hover {
+  background: #ff4a43 !important;
+}
