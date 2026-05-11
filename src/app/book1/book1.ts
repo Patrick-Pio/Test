@@ -70,9 +70,22 @@ export class Book1 implements OnInit {
     this.isSubmitting = true;
 
     try {
-      if (!this.userId) throw new Error('User not logged in.');
+  if (!this.userId) throw new Error('User not logged in.');
 
-      const bookingData = {
+  if (
+    !this.name.trim() ||
+    !this.phone.trim() ||
+    !this.email.trim() ||
+    !this.date ||
+    !this.timeSlot
+  ) {
+    this.errorMessage = 'Please fill all required fields.';
+    this.cdr.detectChanges();
+    this.isSubmitting = false;
+    return;
+  }
+
+  const bookingData = {
         user_id: this.userId,
         car_name: this.carModel,
         full_name: this.name,
