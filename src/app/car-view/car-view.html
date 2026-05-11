@@ -1,52 +1,81 @@
 <div class="container">
-
   <!-- LEFT SIDE (3D VIEW) -->
   <div class="left">
     <app-car-3d-viewer
       *ngIf="!loading && modelPath"
       [model]="modelPath">
     </app-car-3d-viewer>
+
+    <!-- Overlay label at bottom-left -->
+    <div class="car-overlay" *ngIf="!loading">
+      <span class="badge">PERFORMANCE VEHICLE</span>
+      <h1 class="car-title">{{ carName }}</h1>
+      <p class="car-tagline">{{ tagline || 'Engineered Excellence' }}</p>
+    </div>
   </div>
 
   <!-- RIGHT SIDE (DETAILS) -->
   <div class="right">
-
     <div class="top-bar">
       <button class="back-btn" (click)="goBack()">← Back</button>
+      <div class="nav-links">
+        <a class="nav-link">My Bookings</a>
+        <a class="nav-link">Logout</a>
+      </div>
     </div>
 
     <!-- LOADING STATE -->
     <div *ngIf="loading" class="loading-state">Loading...</div>
 
     <ng-container *ngIf="!loading">
-
-      <h2>{{ carName }}</h2>
-
-      <div class="details-container">
-
-        <!-- SPECS -->
-        <div class="specs">
-          <div class="row"><span>Engine</span><b>{{ engine }}</b></div>
-          <div class="row"><span>Power</span><b>{{ power }}</b></div>
-          <div class="row"><span>Top Speed</span><b>{{ topSpeed }}</b></div>
-          <div class="row"><span>0-100 km/h</span><b>{{ acceleration }}</b></div>
-          <div class="row"><span>Fuel Type</span><b>{{ fuelType }}</b></div>
-          <div class="row"><span>Transmission</span><b>{{ transmission }}</b></div>
-        </div>
-
-        <!-- DESCRIPTION -->
-        <div class="description">
-          <p>{{ description }}</p>
-        </div>
-
+      <div class="header-section">
+        <h2 class="detail-title">{{ carName }}</h2>
+        <div class="divider-red"></div>
+        <p class="price">{{ price || '₹—' }}</p>
       </div>
 
-      <button class="test-drive-btn" (click)="bookTestDrive()">
-        Book Test Drive
+      <!-- SPEC CARDS -->
+      <div class="spec-grid">
+        <div class="spec-card">
+          <div class="spec-label">ENGINE</div>
+          <div class="spec-value">{{ engine }}</div>
+          <i class="spec-icon">⚙</i>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">POWER</div>
+          <div class="spec-value">{{ power }}</div>
+          <i class="spec-icon">⚡</i>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">TOP SPEED</div>
+          <div class="spec-value">{{ topSpeed }}</div>
+          <i class="spec-icon">◎</i>
+        </div>
+        <div class="spec-card">
+          <div class="spec-label">0-100 KM/H</div>
+          <div class="spec-value">{{ acceleration }}</div>
+          <i class="spec-icon">⏱</i>
+        </div>
+        <div class="spec-card" *ngIf="fuelType">
+          <div class="spec-label">FUEL TYPE</div>
+          <div class="spec-value">{{ fuelType }}</div>
+          <i class="spec-icon">⛽</i>
+        </div>
+        <div class="spec-card" *ngIf="transmission">
+          <div class="spec-label">TRANSMISSION</div>
+          <div class="spec-value">{{ transmission }}</div>
+          <i class="spec-icon">🔧</i>
+        </div>
+      </div>
+
+      <!-- DESCRIPTION -->
+      <p class="description" *ngIf="description">{{ description }}</p>
+
+      <!-- CTA BUTTON -->
+      <button class="cta-btn" (click)="bookTestDrive()">
+        Book Private Viewing →
       </button>
-
+      <p class="cta-note">* Viewing strictly by appointment or verified booking only.</p>
     </ng-container>
-
   </div>
-
 </div>

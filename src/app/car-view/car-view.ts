@@ -13,7 +13,6 @@ import { SupabaseService } from '../supabase.service';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class CarViewComponent implements OnInit {
-
   loading = true;
   carName: string = '';
   engine: string = '';
@@ -24,6 +23,8 @@ export class CarViewComponent implements OnInit {
   transmission: string = '';
   description: string = '';
   modelPath: string = '';
+  price: string = '';       // ✅ Added
+  tagline: string = '';     // ✅ Added
 
   constructor(
     private route: ActivatedRoute,
@@ -64,11 +65,12 @@ export class CarViewComponent implements OnInit {
           this.transmission = data.transmission;
           this.description  = data.description;
           this.modelPath    = data.model_path || 'assets/models/car1.glb';
+          this.price        = data.price || '';        // ✅ Added
+          this.tagline      = data.tagline || '';      // ✅ Added
           this.loading      = false;
           this.cdr.detectChanges();
         }
       });
-
     } catch (err) {
       console.error('Failed to load car:', err);
       this.ngZone.run(() => {

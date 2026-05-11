@@ -1,27 +1,81 @@
-<div class="container">
+<div class="sw-wrap">
 
-  <div class="navbar">
-    <h1>CAR SHOWROOM</h1>
-    <div class="nav-buttons">
-      <button *ngIf="isAdmin" class="add-btn" (click)="goToAddCar()">+ Add Car</button>
-      <button (click)="goToBookings()">My Bookings</button>
-      <button (click)="logout()">Logout</button>
+  <!-- ── NAVBAR ── -->
+  <nav class="sw-nav">
+    <span class="sw-nav__logo">APEX PERFORMANCE MOTORS</span>
+    <div class="sw-nav__actions">
+      <button *ngIf="isAdmin" class="sw-btn sw-btn--ghost" (click)="goToAddCar()">+ Add Car</button>
+      <button class="sw-btn sw-btn--ghost" (click)="goToBookings()">My Bookings</button>
+      <button class="sw-btn sw-btn--red" (click)="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- ── SUCCESS TOAST ── -->
+  <div class="sw-toast" *ngIf="carAdded">🚗 Car added successfully!</div>
+
+  <!-- ── HERO ── -->
+  <section class="sw-hero">
+    <p class="sw-hero__eyebrow">The Curated Collection</p>
+    <h1 class="sw-hero__title">ELITE<br>PERFORMANCE</h1>
+    <p class="sw-hero__desc">
+      Experience the pinnacle of automotive engineering. Our current inventory
+      features track-focused marvels and iconic heritage legends, meticulously
+      maintained for the ultimate connoisseur.
+    </p>
+  </section>
+
+  <!-- ── LOADING ── -->
+  <div class="sw-loading" *ngIf="loading">
+    <div class="sw-loading__spinner"></div>
+    <span>Loading Collection...</span>
+  </div>
+
+  <!-- ── GRID ── -->
+  <div class="sw-grid" *ngIf="!loading">
+    <div class="sw-card" *ngFor="let car of cars">
+
+      <div class="sw-card__img-wrap">
+        <img class="sw-card__img" [src]="car.image_url" [alt]="car.name">
+      </div>
+
+      <div class="sw-card__body">
+
+        <div class="sw-card__header">
+          <h2 class="sw-card__name">{{ car.name }}</h2>
+          <span class="sw-card__badge">✦</span>
+        </div>
+
+        <p class="sw-card__price-label">Price Indicative</p>
+        <p class="sw-card__price">{{ car.price }}</p>
+
+        <!-- Specs row: only shows if your car object has spec fields -->
+        <div class="sw-specs" *ngIf="car.spec1_label">
+          <div class="sw-specs__cell">
+            <span class="sw-specs__label">{{ car.spec1_label }}</span>
+            <span class="sw-specs__val">{{ car.spec1_value }}</span>
+          </div>
+          <div class="sw-specs__divider"></div>
+          <div class="sw-specs__cell">
+            <span class="sw-specs__label">{{ car.spec2_label }}</span>
+            <span class="sw-specs__val">{{ car.spec2_value }}</span>
+          </div>
+        </div>
+
+        <button class="sw-btn sw-btn--detail" (click)="viewDetails(car.name)">
+          VIEW DETAILS &rarr;
+        </button>
+
+      </div>
     </div>
   </div>
 
-  <div class="msg success" *ngIf="carAdded">
-    🚗 Car added successfully!
-  </div>
-
-  <div *ngIf="loading" class="loading-state">Loading...</div>
-
-  <div class="grid" *ngIf="!loading">
-    <div class="card" *ngFor="let car of cars">
-      <img [src]="car.image_url" alt="{{ car.name }}">
-      <h2>{{ car.name }}</h2>
-      <p>{{ car.price }}</p>
-      <button (click)="viewDetails(car.name)">View Details</button>
+  <!-- ── FOOTER ── -->
+  <footer class="sw-footer">
+    <div>
+      <p class="sw-footer__logo">APEX PERFORMANCE MOTORS</p>
+      <p class="sw-footer__copy">© 2024 APEX PERFORMANCE MOTORS. ALL RIGHTS RESERVED.</p>
     </div>
-  </div>
+
+  </footer>
 
 </div>
