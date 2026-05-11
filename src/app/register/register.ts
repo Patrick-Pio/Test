@@ -33,9 +33,12 @@ export class RegisterComponent {
     this.errorMessage = '';
 
     const { error } = await this.supabaseService.supabase.auth.signUp({
-      email: this.email,
-      password: this.password
-    });
+  email: this.email,
+  password: this.password,
+  options: {
+    emailRedirectTo: 'https://test-alpha-rose-37.vercel.app'
+  }
+});
 
     if (error) {
       this.errorMessage = error.message;
